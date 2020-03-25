@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid home">
     <div class="row justify-content-md-center">
-      <div class="col-lg-3 col-md-6">
+      <div class="col-lg-5 col-md-8">
         <h3>Novo Jogo!</h3>
         <div class="form-group">
           <input
@@ -24,7 +24,7 @@
           v-on:click="begin"
           :disabled="!description"
         >
-          Começar
+          Jogar
         </button>
       </div>
     </div>

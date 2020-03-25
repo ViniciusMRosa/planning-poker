@@ -50,10 +50,11 @@ input, textarea, select {
     border: 2px solid #727cf5;
     transition: 0.5s;
 }
-h1, h2, h3 {
+h1, h2, h3, h4, h5 {
     font-weight: bold;
     color: #7a7a8c;
     font-family: Mirage-Black;
+    margin-bottom: .7rem;
 }
 a {
     color: #8c76dc;
@@ -67,6 +68,9 @@ a {
     color: #fafbfe;
     font-size: 50px;
     font-weight: bold;
+}
+.row {
+    margin-bottom: 20px;
 }
 .menu {
     /*
@@ -100,15 +104,15 @@ a {
 }
 .btn-app {
     color: #fff;
-    background-color: #39afd1;
-    border-color: #39afd1;
+    background-color: #727cf5;
+    border-color: #727cf5;
     cursor: pointer;
     transition: 0.5s;
 }
 .btn-app:hover, .btn-app:active, .btn-app:focus {
     color: #fff;
-    background-color: #2b9fc1; 
-    border-color: #2b9fc1;
+    background-color: #8c76dc; 
+    border-color: #8c76dc;
     cursor: pointer;
     box-shadow: 0 0.125rem 0.625rem rgba(52,58,64,0.4), 0 0.0625rem 0.125rem rgba(52,58,64,0.5);
     transition: 0.5s;
@@ -152,11 +156,6 @@ footer {
     padding-right: 35px;
     margin-top: 15px;
 }
-.drawn {
-    border: 2px solid #666;
-    border-radius: 4px;
-    padding-top: 10px;
-}
 /*custom scrollbar*/
 ::-webkit-scrollbar {
     width: 6px;
@@ -172,23 +171,46 @@ footer {
 }
 /*custom scrollbar*/
 ::placeholder {
-  color: rgba(0,0,0,0.3);
-  opacity: 1; /* Firefox */
+    color: rgba(0,0,0,0.3);
+    opacity: 1; /* Firefox */
 }
 
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
- color: rgba(0,0,0,0.3);
+    color: rgba(0,0,0,0.3);
 }
 
 ::-ms-input-placeholder { /* Microsoft Edge */
- color: rgba(0,0,0,0.3);
+    color: rgba(0,0,0,0.3);
 }
 
 .layout {
     background: #fff;
     -webkit-box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
     box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
-    padding-bottom: 15px;
-    padding-top: 15px;
     border-radius: 5px;
+    padding: 15px;
+}
+label {
+    font-weight: bold;
+}
+.users {
+    font-weight: bold;
+}
+.playing-card{
+    border: 1px solid rgba(0,0,0,.10);
+    border-radius: 5px;
+    height: 150px;
+    text-align: center;
+    position: relative;
+}
+.playing-card .value{
+    font-weight: bold;
+    margin-top: 60px;
+    position: absolute;
+}
+.online {
+    color: #0acf97;
+    font-size: 9px;
+    vertical-align: middle;
+    margin-bottom: 3px;
 }
