@@ -1,18 +1,53 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="container-fluid home">
+    <div class="row justify-content-md-center">
+      <div class="col-lg-3 col-md-6">
+        <h3>Novo Jogo!</h3>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control text-center"
+            id="description"
+            v-model="description"
+            aria-describedby="descriptionHelp"
+          />
+          <small
+            v-if="!description"
+            id="descriptionHelp"
+            class="form-text text-muted text-danger"
+            >Campo obrigatório.</small
+          >
+        </div>
+        <button
+          type="button"
+          class="btn btn-app btn-ruffle"
+          v-on:click="begin"
+          :disabled="!description"
+        >
+          Começar
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
 export default {
   name: "Home",
-  components: {
-    HelloWorld
+  data() {
+    return {
+      description: "Planejamento de Tarefas"
+    };
+  },
+  methods: {
+    begin() {
+      this.$router.push({
+        name: "Admin",
+        params: {
+          description: this.description
+        }
+      });
+    }
   }
 };
 </script>

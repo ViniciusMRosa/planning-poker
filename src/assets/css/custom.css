@@ -1,0 +1,194 @@
+@font-face {
+    font-family: Wakeup;
+    src: url(Wakeup.ttf);
+}
+
+@font-face {
+    font-family: Proxima-Nova-Soft;
+    src: url(Proxima-Nova-Soft-Regular.ttf);
+}
+
+@font-face {
+    font-family: Mirage-Bold;
+    src: url(Mirage-Bold.otf);
+}
+
+@font-face {
+    font-family: Mirage-Black;
+    src: url(Mirage-Black.otf);
+}
+
+body{
+    background-color: #fafbfe;
+}
+#app {
+    font-family: Proxima-Nova-Soft;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #98a6ad;
+    position: relative;
+    min-height: 100vh;
+}
+input:hover, input:focus, input:active, textarea:focus, select:focus, .form-control, .form-control:focus {
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+input, textarea, select {
+    outline: 0;
+}
+.form-control {
+    height: calc(1.9em + .75rem + 2px);
+    color: #7a7a8c;
+    border: 2px solid rgba(0,0,0,.10);
+    transition: 0.5s;
+}
+.form-control:hover, .form-control:active, .form-control:focus {
+    border: 2px solid #727cf5;
+    transition: 0.5s;
+}
+h1, h2, h3 {
+    font-weight: bold;
+    color: #7a7a8c;
+    font-family: Mirage-Black;
+}
+a {
+    color: #8c76dc;
+}
+.table thead th, .table th, .table td {
+    border-color: rgba(0,0,0,.07);
+    color: rgba(0,0,0,.55);
+}
+.logo {
+    font-family: Wakeup;
+    color: #fafbfe;
+    font-size: 50px;
+    font-weight: bold;
+}
+.menu {
+    /*
+    background: rgb(140,118,220);
+    background: linear-gradient(45deg, rgba(140,118,220,1) 6%, rgba(114,124,245,1) 48%);
+    */
+    background-color: #313a46;
+    text-align: center;
+    width: 100%;
+    padding-right: 25px;
+    padding-left: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.container-fluid {
+    width: 100%;
+    padding-right: 25px;
+    padding-left: 25px;
+    padding-top: 30px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+.btn {
+    padding: 0.5rem .5rem;
+    font-family: Proxima-Nova-Soft;
+}
+.btn-app {
+    color: #fff;
+    background-color: #39afd1;
+    border-color: #39afd1;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.btn-app:hover, .btn-app:active, .btn-app:focus {
+    color: #fff;
+    background-color: #2b9fc1; 
+    border-color: #2b9fc1;
+    cursor: pointer;
+    box-shadow: 0 0.125rem 0.625rem rgba(52,58,64,0.4), 0 0.0625rem 0.125rem rgba(52,58,64,0.5);
+    transition: 0.5s;
+}
+footer {
+    width: 100%;
+    height: 40px;
+    bottom: 0;
+    width: 100%;
+    color: #98a6ad;
+    line-height: 1.5;
+    text-align: right;
+    position: absolute;
+    border-top: 1px solid rgba(152,166,173,.2);
+}
+.version {
+    font-size: 12px;
+    padding-right: 25px;
+    padding-left: 25px;
+    padding-top: 10px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.content {
+    padding-top: 30px;
+    padding-bottom: 60px;
+}
+.text-danger {
+    color: #c8262a !important;
+    transition: 0.3s;
+}
+.text-danger:hover, .text-danger:focus, .text-danger:active {
+    color: #ff0006 !important;
+    transition: 0.3s;
+}
+.btn-ruffle {
+    padding: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 35px;
+    padding-right: 35px;
+    margin-top: 15px;
+}
+.drawn {
+    border: 2px solid #666;
+    border-radius: 4px;
+    padding-top: 10px;
+}
+/*custom scrollbar*/
+::-webkit-scrollbar {
+    width: 6px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+/*custom scrollbar*/
+::placeholder {
+  color: rgba(0,0,0,0.3);
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color: rgba(0,0,0,0.3);
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+ color: rgba(0,0,0,0.3);
+}
+
+.layout {
+    background: #fff;
+    -webkit-box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
+    box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
+    padding-bottom: 15px;
+    padding-top: 15px;
+    border-radius: 5px;
+}
