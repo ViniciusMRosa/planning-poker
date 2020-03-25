@@ -16,13 +16,13 @@
       </div>
     </div>
     <div class="row justify-content-md-center" v-if="!gameStarted">
-      <div class="col-lg-2 col-md-3 col-sm-12 col-12">
+      <div class="col-lg-2 col-md-3 col-sm-12 col-12 margin-bottom">
         <div class="layout">
           <h4>Usuários</h4>
           <div class="alert alert-info" role="alert" v-if="!users.length">
             Nenhum usuário conectado
           </div>
-          <div class="users text-left" v-if="users.length">
+          <div class="users" v-if="users.length">
             <p v-for="(user, index) in users" v-bind:key="index">
               <font-awesome-icon icon="circle" class="online" /> {{ user }}
             </p>
