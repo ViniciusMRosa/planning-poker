@@ -202,6 +202,7 @@ label {
     height: 150px;
     text-align: center;
     position: relative;
+    margin-bottom: 13px;
 }
 .playing-card .value{
     font-weight: bold;

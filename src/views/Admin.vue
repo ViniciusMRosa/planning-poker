@@ -62,13 +62,14 @@
     <div class="row justify-content-md-center" v-if="gameStarted">
       <div class="col-lg-8 col-md-8 col-sm-12 col-12">
         <div class="layout">
+          <small>Descrição da Tarefa:</small>
           <h4>{{ issue }}</h4>
           <div class="alert alert-info" role="alert" v-if="!users.length">
             Nenhum usuário conectado
           </div>
-          <div class="row justify-content-md-center" v-if="users.length">
+          <div class="row justify-content-md-center users" v-if="users.length">
             <div
-              class="col-lg-2 col-md-2 col-sm-3 col-3"
+              class="col-lg-2 col-md-2 col-sm-4 col-6"
               v-for="(user, index) in users"
               v-bind:key="index"
             >
@@ -79,14 +80,16 @@
             </div>
           </div>
           <div class="row justify-content-md-center">
-            <button
-              type="button"
-              class="btn btn-app btn-ruffle"
-              v-on:click="end"
-              :disabled="!description"
-            >
-              Encerrar
-            </button>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+              <button
+                type="button"
+                class="btn btn-app btn-ruffle"
+                v-on:click="end"
+                :disabled="!description"
+              >
+                Encerrar
+              </button>
+            </div>
           </div>
         </div>
       </div>
