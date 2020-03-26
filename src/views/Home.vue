@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import firebase from "firebase";
+
 export default {
   name: "Home",
   data() {
@@ -41,12 +43,21 @@ export default {
   },
   methods: {
     begin() {
-      this.$router.push({
-        name: "Admin",
-        params: {
-          description: this.description
-        }
-      });
+      var game = {
+        id: "1fe35579-5ce7-46ec-89e0-7e7236700297",
+        description: this.description
+      };
+
+      var db = firebase.firestore();
+
+      db.collection("games")
+        .add(game)
+        .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(function(error) {
+          console.error("Error adding document: ", error);
+        });
     }
   }
 };
