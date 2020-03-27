@@ -1,30 +1,84 @@
 <template>
   <div class="container-fluid home">
     <div class="row justify-content-md-center">
-      <div class="col-lg-5 col-md-8">
-        <h3>Novo Jogo!</h3>
+      <div class="col-lg-4 col-md-4 col-sm-8 col-12">
+        <h3>Nova Sessão</h3>
+        <div class="alert alert-danger" role="alert" v-if="createError">
+          <strong>Ocorreu um erro</strong>
+          <p>{{ createError }}</p>
+        </div>
         <div class="form-group">
+          <label>Nome da sessão:</label>
           <input
             type="text"
             class="form-control text-center"
-            id="description"
-            v-model="description"
-            aria-describedby="descriptionHelp"
+            id="newSession.name"
+            v-model="newSession.name"
           />
           <small
-            v-if="!description"
-            id="descriptionHelp"
+            v-if="!newSession.name"
+            id="newSession.nameHelp"
             class="form-text text-muted text-danger"
             >Campo obrigatório.</small
           >
         </div>
         <button
+          id="newSessionButton"
           type="button"
-          class="btn btn-app btn-ruffle"
-          v-on:click="begin"
-          :disabled="!description"
+          class="btn btn-app btn-lg"
+          v-on:click="create"
+          :disabled="!newSession.name"
         >
-          Jogar
+          Criar
+        </button>
+        <hr />
+      </div>
+    </div>
+    <div class="row justify-content-md-center">
+      <div class="col-lg-4 col-md-4 col-sm-8 col-12">
+        <h3>Entrar em uma sessão existente</h3>
+        <div class="alert alert-danger" role="alert" v-if="loginError">
+          <strong>Ocorreu um erro</strong>
+          <p>{{ loginError }}</p>
+        </div>
+        <div class="form-group">
+          <label>Id da sessão:</label>
+          <input
+            type="text"
+            class="form-control text-center"
+            id="existentSession.id"
+            v-model="existentSession.id"
+          />
+          <small
+            v-if="!existentSession.id"
+            id="existentSession.idHelp"
+            class="form-text text-muted text-danger"
+            >Campo obrigatório.</small
+          >
+        </div>
+        <div class="form-group">
+          <label>Seu nome:</label>
+          <input
+            type="text"
+            class="form-control text-center"
+            id="existentSession.nickname"
+            v-model="existentSession.nickname"
+          />
+          <small
+            v-if="!existentSession.nickname"
+            id="existentSession.nicknameHelp"
+            class="form-text text-muted text-danger"
+            >Campo obrigatório.</small
+          >
+        </div>
+        <button
+          id="loginButton"
+          type="button"
+          class="btn btn-app btn-lg"
+          v-on:click="login"
+          :disabled="!existentSession.id || !existentSession.nickname"
+        >
+          Entrar
         </button>
       </div>
     </div>
@@ -32,31 +86,46 @@
 </template>
 
 <script>
-import firebase from "firebase";
-
 export default {
   name: "Home",
   data() {
     return {
-      description: "Planejamento de Tarefas"
+      newSession: {
+        id: "1fe35579-5ce7-46ec-89e0-7e7236700297",
+        name: "Planejamento de Tarefas"
+      },
+      existentSession: {
+        id: "1fe35579-5ce7-46ec-89e0-7e7236700297",
+        nickname: ""
+      },
+      createError: "",
+      loginError: "",
+      sessionsRef: window.firebase.firestore().collection("sessions")
     };
   },
   methods: {
-    begin() {
-      var game = {
-        id: "1fe35579-5ce7-46ec-89e0-7e7236700297",
-        description: this.description
-      };
-
-      var db = firebase.firestore();
-
-      db.collection("games")
-        .add(game)
-        .then(function(docRef) {
-          console.log("Document written with ID: ", docRef.id);
+    create() {
+      this.createError = "";
+      this.sessionsRef
+        .doc(this.newSession.id)
+        .set(this.newSession)
+        .then(() => {
+          this.$router.push(this.newSession.id + "/admin");
         })
         .catch(function(error) {
-          console.error("Error adding document: ", error);
+          this.createError = error;
+        });
+    },
+    login() {
+      this.loginError = "";
+      this.sessionsRef
+        .doc(this.existentSession.id)
+        .get()
+        .then(() => {
+          this.$router.push(this.existentSession.id + "/game");
+        })
+        .catch(function(error) {
+          this.loginError = error;
         });
     }
   }

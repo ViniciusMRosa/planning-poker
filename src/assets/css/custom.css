@@ -148,13 +148,9 @@ footer {
     color: #ff0006 !important;
     transition: 0.3s;
 }
-.btn-ruffle {
-    padding: 0;
-    padding-top: 15px;
-    padding-bottom: 15px;
+.btn-lg {
     padding-left: 35px;
     padding-right: 35px;
-    margin-top: 15px;
 }
 /*custom scrollbar*/
 ::-webkit-scrollbar {
