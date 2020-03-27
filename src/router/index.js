@@ -2,8 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Admin from "../views/Admin.vue";
-import Registry from "../views/Registry.vue";
 import Game from "../views/Game.vue";
+import Registry from "../views/Registry.vue";
 
 Vue.use(VueRouter);
 
@@ -14,19 +14,17 @@ const routes = [
     component: Home
   },
   {
-    path: "/admin",
+    path: "/:sessionId/admin",
     name: "Admin",
     component: Admin
   },
   {
-    path: "/registry",
-    name: "Registry",
-    component: Registry
+    path: "/:sessionId/game",
+    component: Game
   },
   {
-    path: "/game",
-    name: "Game",
-    component: Game
+    path: "/:sessionId/registry",
+    component: Registry
   }
 ];
 
