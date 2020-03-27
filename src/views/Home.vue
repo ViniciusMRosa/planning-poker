@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid home">
     <div class="row justify-content-md-center">
-      <div class="col-lg-4 col-md-4 col-sm-8 col-12">
+      <div class="col-lg-5 col-md-5 col-sm-8 col-12">
         <h3>Nova Sessão</h3>
         <div class="alert alert-danger" role="alert" v-if="createError">
           <strong>Ocorreu um erro</strong>
@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="row justify-content-md-center">
-      <div class="col-lg-4 col-md-4 col-sm-8 col-12">
+      <div class="col-lg-5 col-md-5 col-sm-8 col-12">
         <h3>Entrar em uma sessão existente</h3>
         <div class="alert alert-danger" role="alert" v-if="loginError">
           <strong>Ocorreu um erro</strong>
