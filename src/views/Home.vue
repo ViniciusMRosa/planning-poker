@@ -136,7 +136,8 @@ export default {
           this.$router.push({
             path: this.newSession.id + "/admin",
             params: {
-              newSession: true
+              newSession: true,
+              sessionId: this.newSession.id
             }
           });
         })
@@ -144,13 +145,16 @@ export default {
           this.createError = error;
         });
     },
-    addUserToSession(session) {
+    async addUserToSession(session) {
       var user = {
         id: Common.generateRandomUUID(),
-        name: this.existentSession.nickname,
+        name: this.existentSession.nickname
       };
       var updatedSession = session.data();
-      updatedSession.users.push(user)
+
+      if (!updatedSession.users) updatedSession.users = [];
+
+      updatedSession.users.push(user);
       this.sessionsRef
         .doc(session.data().id)
         .set(updatedSession)
@@ -158,7 +162,7 @@ export default {
           this.$router.push(this.existentSession.id + "/game");
         })
         .catch(function(error) {
-          this.createError = error;
+          this.loginError = error;
         });
     },
     login() {
@@ -172,7 +176,6 @@ export default {
         .doc(this.existentSession.id)
         .get()
         .then(session => {
-          
           this.loginLoading = false;
           if (session.exists) {
             this.addUserToSession(session);
