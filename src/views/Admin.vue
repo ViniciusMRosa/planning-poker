@@ -7,24 +7,28 @@
         </div>
       </div>
     </div>
-    <div class="row justify-content-md-center" v-if="!loading">
-      <div class="col-lg-8 col-md-10 col-sm-12 col-12">
-        <div class="layout-gray">
-          <strong>http://localhost:8080/{{ sessionId }}/registry</strong>
-        </div>
-      </div>
-    </div>
-    <div class="row justify-content-md-center" v-if="!loading">
+    <div class="row justify-content-md-center" v-if="!loading && sessionError">
       <div class="col-lg-8 col-md-10 col-sm-12 col-12">
         <div class="alert alert-danger" role="alert" v-if="sessionError">
           <strong>Ocorreu um erro</strong>
           <br />
           {{ sessionError }}
         </div>
+      </div>
+    </div>
+    <div class="row justify-content-md-center" v-if="!loading && !sessionError">
+      <div class="col-lg-8 col-md-10 col-sm-12 col-12">
+        <div class="layout-gray">
+          <strong>http://localhost:8080/{{ sessionId }}/registry</strong>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-md-center" v-if="!loading && !sessionError">
+      <div class="col-lg-8 col-md-10 col-sm-12 col-12">
         <h3><font-awesome-icon icon="code-branch" /> {{ sessionName }}</h3>
       </div>
     </div>
-    <div class="row justify-content-md-center" v-if="!gameStarted && !loading">
+    <div class="row justify-content-md-center" v-if="!gameStarted && !loading && !sessionError">
       <div class="col-lg-2 col-md-3 col-sm-12 col-12 margin-bottom">
         <div class="layout">
           <h4>Usuários</h4>
@@ -163,7 +167,9 @@ export default {
         .then( session => {
           this.sessionId = session.id;
           this.sessionName = session.name;
-          this.users = session.users.map(u => u.name);
+          if(session.users) {
+            this.users = session.users.map(u => u.name);
+          }
           this.loading = false;
         }, error => {
           this.sessionError = error;

@@ -137,10 +137,11 @@ export default {
               sessionId: this.newSession.id
             }
           });
-        })
-        .catch(function(error) {
+        },
+        (error) => {
           this.createError = error;
-        });
+        }
+      );
     },
     async addUserToSession(updatedSession) {
       var user = {
@@ -154,10 +155,11 @@ export default {
       SessionService.save(updatedSession)
         .then(() => {
           this.$router.push(this.existentSession.id + "/game");
-        })
-        .catch(function(error) {
+        },
+        (error) => {
           this.loginError = error;
-        });
+        }
+      );
     },
     login() {
       this.createError = "";
