@@ -142,30 +142,6 @@ export default {
           this.createError = error;
         });
     },
-    async addUserToSession(session) {
-      var user = {
-        id: Common.generateRandomUUID(),
-        name: this.existentSession.nickname
-      };
-      var updatedSession = session.data();
-
-      if (!updatedSession.users) updatedSession.users = [];
-
-      updatedSession.users.push(user);
-      SessionService.save(updatedSession)
-        .then(() => {
-          this.$router.push({
-            name: "Game",
-            params: {
-              sessionId: this.existentSession.id,
-              user: user,
-            }
-          });
-        })
-        .catch(function(error) {
-          this.loginError = error;
-        });
-    },
     login() {
       this.createError = "";
       this.loginError = "";
@@ -177,7 +153,19 @@ export default {
         .then(session => {
           this.loginLoading = false;
           if (session.exists) {
-            this.addUserToSession(session);
+            SessionService.addUserToSession(session.data(),this.existentSession.nickname)
+              .then((user) => {
+              this.$router.push({
+                name: "Game",
+                params: {
+                  sessionId: this.existentSession.id,
+                  user: user,
+                }
+              });
+            })
+            .catch(function(error) {
+              this.loginError = error;
+            });
           } else {
             this.loginError = "A sessão informada não existe.";
           }
