@@ -151,7 +151,6 @@ export default {
       };
       var updatedSession = session.data();
       updatedSession.users.push(user)
-      console.log(updatedSession, user);
       this.sessionsRef
         .doc(session.data().id)
         .set(updatedSession)

@@ -125,7 +125,6 @@ export default {
     }
   },
   mounted() {
-
     if(this.$route.params.sessionId){
       sessionsCollection
         .doc(this.$route.params.sessionId)
