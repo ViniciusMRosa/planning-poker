@@ -28,9 +28,13 @@
           class="btn btn-app btn-lg"
           v-on:click="create"
           :disabled="!newSession.name"
+          v-if="!createLoading"
         >
           Criar
         </button>
+        <div v-if="createLoading">
+          <font-awesome-icon class="spin" icon="spinner" />
+        </div>
         <hr />
       </div>
     </div>
@@ -77,9 +81,13 @@
           class="btn btn-app btn-lg"
           v-on:click="login"
           :disabled="!existentSession.id || !existentSession.nickname"
+          v-if="!loginLoading"
         >
           Entrar
         </button>
+        <div v-if="loginLoading">
+          <font-awesome-icon class="spin" icon="spinner" />
+        </div>
       </div>
     </div>
   </div>
@@ -100,12 +108,18 @@ export default {
       },
       createError: "",
       loginError: "",
+      createLoading: false,
+      loginLoading: false,
       sessionsRef: window.firebase.firestore().collection("sessions")
     };
   },
   methods: {
     create() {
       this.createError = "";
+      this.createLoading = true;
+
+      setTimeout(2000);
+
       this.sessionsRef
         .doc(this.newSession.id)
         .set(this.newSession)
@@ -118,6 +132,10 @@ export default {
     },
     login() {
       this.loginError = "";
+      this.loginLoading = true;
+
+      setTimeout(2000);
+
       this.sessionsRef
         .doc(this.existentSession.id)
         .get()
