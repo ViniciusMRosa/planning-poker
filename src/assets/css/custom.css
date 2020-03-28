@@ -72,6 +72,9 @@ a {
 .row, .margin-bottom {
     margin-bottom: 20px;
 }
+.min-margin-bottom {
+    margin-bottom: 7px;
+}
 .margin-top {
     margin-top: 20px;
 }
@@ -196,6 +199,17 @@ footer {
     background-color: #e9ecef;
     border-radius: .25rem;
 }
+.layout-white {
+    padding: .75rem 1rem;
+    list-style: none;
+    color: #6c757d;
+    background-color: transparent;
+    border: 3px dotted #e9ecef;
+    border-radius: .25rem;
+}
+hr {
+    border: 1px dotted #e9ecef;
+}
 label {
     font-weight: bold;
 }
@@ -209,10 +223,18 @@ label {
     text-align: center;
     position: relative;
     margin-bottom: 13px;
+    height: 181px;
+    width: 125px;
+}
+.playing-card-back {
+    background: url(../images/card-back.svg) no-repeat;
+    background-size: 100%;
+    color: transparent;
 }
 .playing-card .value{
     font-weight: bold;
-    margin-top: 60px;
+    font-size: 25px;
+    margin-top: 55px;
     position: absolute;
 }
 .online {

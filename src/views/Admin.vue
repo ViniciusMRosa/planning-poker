@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    <div class="row justify-content-md-center" v-if="!loading && !sessionError">
+    <div class="row justify-content-md-center" v-if="!loading && !gameStarted && !sessionError">
       <div class="col-lg-8 col-md-10 col-sm-12 col-12">
         <div class="layout-gray">
           <strong>http://localhost:8080/{{ sessionId }}/registry</strong>
@@ -68,25 +68,20 @@
       <div class="col-lg-8 col-md-10 col-sm-12 col-12" v-if="games.length">
         <br />
         <hr />
-        <h4>Tarefas Estimadas:</h4>
-        <table class="table table-striped table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Tarefas</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(game, index) in games" v-bind:key="index">
-              <td>
-                {{ game.title }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <br />
+        <h5>Tarefas Estimadas:</h5>
+        <div
+          class="layout-white min-margin-bottom"
+          v-for="(game, index) in games"
+          v-bind:key="index"
+        >
+          <strong>{{ game }}</strong>
+        </div>
       </div>
       <div class="col-lg-8 col-md-10 col-sm-12 col-12">
         <br />
         <hr />
+        <br />
         <button type="button" class="btn btn-danger" v-on:click="deleteGame">
           Excluir Sessão <font-awesome-icon icon="trash-alt" />
         </button>
@@ -95,30 +90,26 @@
     <div class="row justify-content-md-center" v-if="gameStarted">
       <div class="col-lg-8 col-md-8 col-sm-12 col-12">
         <div class="layout">
-          <small>Descrição da Tarefa:</small>
-          <h4>{{ issue }}</h4>
+          <label>Descrição da Tarefa:</label>
+          <h4>{{ game.title }}</h4>
           <div class="alert alert-info" role="alert" v-if="!users.length">
             Nenhum usuário conectado
           </div>
-          <div class="row justify-content-md-center users" v-if="users.length">
+          <div class="d-flex flex-row bd-highlight mb-3 justify-content-center">
             <div
-              class="col-lg-2 col-md-2 col-sm-4 col-6"
               v-for="(user, index) in users"
               v-bind:key="index"
+              class="p-2 bd-highlight margin-bottom margin-top"
             >
               <font-awesome-icon icon="circle" class="online" /> {{ user }}
-              <div class="playing-card">
+              <div class="playing-card playing-card-back">
                 <span class="value">?</span>
               </div>
             </div>
           </div>
           <div class="row justify-content-md-center">
             <div class="col-lg-8 col-md-10 col-sm-12 col-12">
-              <button
-                type="button"
-                class="btn btn-app margin-top"
-                v-on:click="finishGame"
-              >
+              <button type="button" class="btn btn-app" v-on:click="finishGame">
                 Encerrar
               </button>
             </div>
@@ -136,6 +127,7 @@ export default {
   name: "Admin",
   data() {
     return {
+      session: {},
       sessionId: "",
       sessionName: "",
       users: [],
@@ -152,7 +144,17 @@ export default {
   },
   methods: {
     startGame() {
-      this.gameStarted = true;
+      if (!this.session.games) this.session.games = [];
+
+      this.session.games.push(this.game);
+      SessionService.save(this.session)
+        .then(() => {
+          this.gameStarted = true;
+        },
+        (error) => {
+          this.sessionError = error;
+        }
+      );
     },
     finishGame() {
       this.gameStarted = false;
@@ -165,10 +167,14 @@ export default {
     if (this.$route.params.sessionId) {
       SessionService.getById(this.$route.params.sessionId)
         .then( session => {
+          this.session = session;
           this.sessionId = session.id;
           this.sessionName = session.name;
           if(session.users) {
             this.users = session.users.map(u => u.name);
+          }
+          if(session.games) {
+            this.games = session.games.map(g => g.title);
           }
           this.loading = false;
         }, error => {
