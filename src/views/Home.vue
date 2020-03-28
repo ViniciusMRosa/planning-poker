@@ -99,11 +99,11 @@ export default {
   data() {
     return {
       newSession: {
-        id: "1fe35579-5ce7-46ec-89e0-7e7236700298",
+        id: "1fe35579-5ce7-46ec-89e0-7e7236700297",
         name: "Planejamento de Tarefas"
       },
       existentSession: {
-        id: "1fe35579-5ce7-46ec-89e0-7e7236700299",
+        id: "1fe35579-5ce7-46ec-89e0-7e7236700297",
         nickname: ""
       },
       createError: "",
