@@ -34,9 +34,16 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
-window.firebase = firebase;
+//window.firebase = firebase;
+const fb = firebase;
+const sessionsCollection = fb.firestore().collection("sessions");
 
 new Vue({
   router,
   render: h => h(App)
 }).$mount("#app");
+
+export {
+  fb,
+  sessionsCollection
+}

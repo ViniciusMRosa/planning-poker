@@ -99,6 +99,7 @@
 </template>
 
 <script>
+import { sessionsCollection } from "../main"
 export default {
   name: "Admin",
   data() {
@@ -124,6 +125,24 @@ export default {
     }
   },
   mounted() {
+    console.log(this.$route.params);
+
+    if(this.$route.params.sessionId){
+      sessionsCollection
+        .doc(this.$route.params.sessionId)
+        .get()
+        .then(session => {
+          if (session.exists) {
+            this.users =  session.data().users.map( u => u.name);
+          } else {
+            this.loginError = "A sessão informada não existe.";
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
+
     if (this.$route.params.description) {
       this.description = this.$route.params.description;
     } else {

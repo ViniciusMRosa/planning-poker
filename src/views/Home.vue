@@ -101,7 +101,7 @@
 
 <script>
 import { Common } from "../services/common.js";
-
+import { sessionsCollection } from "../main"
 export default {
   name: "Home",
   data() {
@@ -118,7 +118,7 @@ export default {
       loginError: "",
       createLoading: false,
       loginLoading: false,
-      sessionsRef: window.firebase.firestore().collection("sessions")
+      sessionsRef: sessionsCollection
     };
   },
   methods: {
