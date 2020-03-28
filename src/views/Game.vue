@@ -95,6 +95,9 @@
 <script>
 export default {
   name: "Home",
+  props:{
+    user: Object
+  },
   data() {
     return {
       description: "",
@@ -125,6 +128,7 @@ export default {
     }
   },
   mounted() {
+    console.log("Session:", this.$route.params.sessionId, " user ", this.user);
     if (this.$route.params.names && this.$route.params.description) {
       this.description = this.$route.params.description;
       this.names = this.$route.params.names;

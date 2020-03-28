@@ -159,7 +159,13 @@ export default {
         .doc(session.data().id)
         .set(updatedSession)
         .then(() => {
-          this.$router.push(this.existentSession.id + "/game");
+          this.$router.push({
+            name: "Game",
+            params: {
+              sessionId: this.existentSession.id,
+              user: user,
+            }
+          });
         })
         .catch(function(error) {
           this.loginError = error;

@@ -128,16 +128,12 @@ export default {
     if(this.$route.params.sessionId){
       sessionsCollection
         .doc(this.$route.params.sessionId)
-        .get()
-        .then(session => {
+        .onSnapshot(session => {
           if (session.exists) {
             this.users =  session.data().users.map( u => u.name);
           } else {
             this.loginError = "A sessão informada não existe.";
           }
-        })
-        .catch(function(error) {
-          console.log(error);
         });
     }
 
