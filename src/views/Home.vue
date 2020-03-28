@@ -101,7 +101,7 @@
 
 <script>
 import { Common } from "../services/common.js";
-import { sessionsCollection } from "../main"
+import { sessionsCollection } from "../main";
 export default {
   name: "Home",
   data() {
@@ -144,6 +144,24 @@ export default {
           this.createError = error;
         });
     },
+    addUserToSession(session) {
+      var user = {
+        id: Common.generateRandomUUID(),
+        name: this.existentSession.nickname,
+      };
+      var updatedSession = session.data();
+      updatedSession.users.push(user)
+      console.log(updatedSession, user);
+      this.sessionsRef
+        .doc(session.data().id)
+        .set(updatedSession)
+        .then(() => {
+          this.$router.push(this.existentSession.id + "/game");
+        })
+        .catch(function(error) {
+          this.createError = error;
+        });
+    },
     login() {
       this.createError = "";
       this.loginError = "";
@@ -155,9 +173,10 @@ export default {
         .doc(this.existentSession.id)
         .get()
         .then(session => {
+          
           this.loginLoading = false;
           if (session.exists) {
-            this.$router.push(this.existentSession.id + "/game");
+            this.addUserToSession(session);
           } else {
             this.loginError = "A sessão informada não existe.";
           }
