@@ -5,7 +5,8 @@
         <h3>Nova Sessão</h3>
         <div class="alert alert-danger" role="alert" v-if="createError">
           <strong>Ocorreu um erro</strong>
-          <p>{{ createError }}</p>
+          <br />
+          {{ createError }}
         </div>
         <div class="form-group">
           <label>Nome da sessão:</label>
@@ -41,9 +42,14 @@
     <div class="row justify-content-md-center">
       <div class="col-lg-5 col-md-5 col-sm-8 col-12">
         <h3>Entrar em uma sessão existente</h3>
-        <div class="alert alert-danger" role="alert" v-if="loginError">
+        <div
+          class="alert alert-danger text-left"
+          role="alert"
+          v-if="loginError"
+        >
           <strong>Ocorreu um erro</strong>
-          <p>{{ loginError }}</p>
+          <br />
+          {{ loginError }}
         </div>
         <div class="form-group">
           <label>Id da sessão:</label>
@@ -118,6 +124,7 @@ export default {
   methods: {
     create() {
       this.createError = "";
+      this.loginError = "";
       this.createLoading = true;
 
       setTimeout(2000);
@@ -138,6 +145,7 @@ export default {
         });
     },
     login() {
+      this.createError = "";
       this.loginError = "";
       this.loginLoading = true;
 
@@ -146,8 +154,13 @@ export default {
       this.sessionsRef
         .doc(this.existentSession.id)
         .get()
-        .then(() => {
-          this.$router.push(this.existentSession.id + "/game");
+        .then(session => {
+          this.loginLoading = false;
+          if (session.exists) {
+            this.$router.push(this.existentSession.id + "/game");
+          } else {
+            this.loginError = "A sessão informada não existe.";
+          }
         })
         .catch(function(error) {
           this.loginError = error;
