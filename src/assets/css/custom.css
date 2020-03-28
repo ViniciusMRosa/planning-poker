@@ -72,6 +72,9 @@ a {
 .row, .margin-bottom {
     margin-bottom: 20px;
 }
+.margin-top {
+    margin-top: 20px;
+}
 .menu {
     /*
     background: rgb(140,118,220);
@@ -185,6 +188,13 @@ footer {
     box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
     border-radius: 5px;
     padding: 15px;
+}
+.layout-gray {
+    padding: .75rem 1rem;
+    list-style: none;
+    color: #6c757d;
+    background-color: #e9ecef;
+    border-radius: .25rem;
 }
 label {
     font-weight: bold;

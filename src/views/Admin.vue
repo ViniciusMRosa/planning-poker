@@ -1,18 +1,27 @@
 <template>
   <div class="container-fluid admin">
-    <div class="row justify-content-md-center">
-      <div class="col-lg-8 col-md-10">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Início</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Admin</li>
-          </ol>
-        </nav>
+    <div class="row justify-content-md-center" v-if="loading">
+      <div class="col-lg-8 col-md-10 col-sm-12 col-12">
+        <div>
+          <font-awesome-icon class="spin" icon="spinner" />
+        </div>
       </div>
     </div>
-    <div class="row justify-content-md-center">
-      <div class="col-lg-8 col-md-10">
-        <h3>{{ description }}</h3>
+    <div class="row justify-content-md-center" v-if="!loading">
+      <div class="col-lg-8 col-md-10 col-sm-12 col-12">
+        <div class="layout-gray">
+          <strong>http://localhost:8080/{{ sessionId }}/registry</strong>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-md-center" v-if="!loading">
+      <div class="col-lg-8 col-md-10 col-sm-12 col-12">
+        <div class="alert alert-danger" role="alert" v-if="sessionError">
+          <strong>Ocorreu um erro</strong>
+          <br />
+          {{ sessionError }}
+        </div>
+        <h3><font-awesome-icon icon="code-branch" /> {{ sessionName }}</h3>
       </div>
     </div>
     <div class="row justify-content-md-center" v-if="!gameStarted">
@@ -33,30 +42,50 @@
         <div class="layout">
           <h4>Novo Jogo</h4>
           <div class="form-group">
-            <label for="exampleInputPassword1">Descrição da Tarefa:</label>
+            <label for="gameTitle">Descrição da Tarefa:</label>
             <input
               type="text"
               class="form-control text-center"
-              id="description"
-              v-model="issue"
-              aria-describedby="descriptionHelp"
+              id="gameTitle"
+              v-model="game.title"
+              aria-describedby="gameTitleHelp"
             />
-            <small
-              v-if="!issue"
-              id="descriptionHelp"
-              class="form-text text-muted text-danger"
-              >Campo obrigatório.</small
-            >
             <button
               type="button"
-              class="btn btn-app btn-ruffle"
-              v-on:click="begin"
-              :disabled="!issue"
+              class="btn btn-app margin-top"
+              v-on:click="startGame"
+              :disabled="!game.title"
             >
               Começar
             </button>
           </div>
         </div>
+      </div>
+      <div class="col-lg-8 col-md-10 col-sm-12 col-12" v-if="games.length">
+        <br />
+        <hr />
+        <h4>Tarefas Estimadas:</h4>
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Tarefas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(game, index) in games" v-bind:key="index">
+              <td>
+                {{ game.title }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-lg-8 col-md-10 col-sm-12 col-12">
+        <br />
+        <hr />
+        <button type="button" class="btn btn-danger" v-on:click="deleteGame">
+          Excluir Sessão <font-awesome-icon icon="trash-alt" />
+        </button>
       </div>
     </div>
     <div class="row justify-content-md-center" v-if="gameStarted">
@@ -80,12 +109,11 @@
             </div>
           </div>
           <div class="row justify-content-md-center">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+            <div class="col-lg-8 col-md-10 col-sm-12 col-12">
               <button
                 type="button"
-                class="btn btn-app btn-ruffle"
-                v-on:click="end"
-                :disabled="!description"
+                class="btn btn-app margin-top"
+                v-on:click="finishGame"
               >
                 Encerrar
               </button>
@@ -99,52 +127,53 @@
 </template>
 
 <script>
-import { sessionsCollection } from "../main"
+import { SessionService } from "../services/sessionService.js";
 export default {
   name: "Admin",
   data() {
     return {
-      description: "",
-      users: ["Hugo", "Leo", "Mari", "Naty", "Vini"],
-      games: [
-        "Carregar categoria na edição dos contratos",
-        "Voltar opção de cadastro de categoria na modal do financeiro",
-        "Bug de anexos",
-        "Criar front da criação de conta contábil analítica"
-      ],
+      sessionId: "",
+      sessionName: "",
+      users: [],
+      games: [],
+      game: {
+        title: "",
+        votes: []
+      },
       gameStarted: false,
+      loading: true,
+      sessionError: "",
       issue: ""
     };
   },
   methods: {
-    begin() {
+    startGame() {
       this.gameStarted = true;
     },
-    end() {
+    finishGame() {
+      this.gameStarted = false;
+    },
+    deleteGame() {
       this.gameStarted = false;
     }
   },
   mounted() {
-    if(this.$route.params.sessionId){
-      sessionsCollection
-        .doc(this.$route.params.sessionId)
-        .get()
+    if (this.$route.params.sessionId) {
+      SessionService.getById(this.$route.params.sessionId)
         .then(session => {
           if (session.exists) {
-            this.users =  session.data().users.map( u => u.name);
+            this.sessionId = session.data().id;
+            this.sessionName = session.data().name;
+            this.users = session.data().users.map(u => u.name);
           } else {
-            this.loginError = "A sessão informada não existe.";
+            this.sessionError = "A sessão informada não existe.";
           }
+          this.loading = false;
         })
         .catch(function(error) {
-          console.log(error);
+          this.sessionError = error;
+          this.loading = false;
         });
-    }
-
-    if (this.$route.params.description) {
-      this.description = this.$route.params.description;
-    } else {
-      this.description = "Teste";
     }
   }
 };
