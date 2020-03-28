@@ -34,7 +34,6 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
-//window.firebase = firebase;
 const fb = firebase;
 const sessionsCollection = fb.firestore().collection("sessions");
 
