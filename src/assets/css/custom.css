@@ -219,4 +219,5 @@ label {
 .spin {
     /* Apply 'spinner' keyframes looping once every second (1s)  */
     animation: spinner 2s linear infinite;
+    font-size: 20px;
 }

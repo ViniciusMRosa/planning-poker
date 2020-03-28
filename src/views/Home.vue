@@ -94,16 +94,18 @@
 </template>
 
 <script>
+import { Common } from "../services/common.js";
+
 export default {
   name: "Home",
   data() {
     return {
       newSession: {
-        id: "1fe35579-5ce7-46ec-89e0-7e7236700297",
+        id: Common.generateRandomUUID(),
         name: "Planejamento de Tarefas"
       },
       existentSession: {
-        id: "1fe35579-5ce7-46ec-89e0-7e7236700297",
+        id: "",
         nickname: ""
       },
       createError: "",
@@ -124,7 +126,12 @@ export default {
         .doc(this.newSession.id)
         .set(this.newSession)
         .then(() => {
-          this.$router.push(this.newSession.id + "/admin");
+          this.$router.push({
+            path: this.newSession.id + "/admin",
+            params: {
+              newSession: true
+            }
+          });
         })
         .catch(function(error) {
           this.createError = error;
