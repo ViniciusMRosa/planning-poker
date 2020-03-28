@@ -100,8 +100,8 @@
 </template>
 
 <script>
-import { Common } from "../services/common.js";
-import { sessionsCollection } from "../main";
+import { Common } from "../services/commonService.js";
+import { SessionService } from "../services/sessionService.js";
 export default {
   name: "Home",
   data() {
@@ -117,8 +117,7 @@ export default {
       createError: "",
       loginError: "",
       createLoading: false,
-      loginLoading: false,
-      sessionsRef: sessionsCollection
+      loginLoading: false
     };
   },
   methods: {
@@ -129,9 +128,7 @@ export default {
 
       setTimeout(2000);
 
-      this.sessionsRef
-        .doc(this.newSession.id)
-        .set(this.newSession)
+      SessionService.save(this.newSession)
         .then(() => {
           this.$router.push({
             path: this.newSession.id + "/admin",
@@ -155,9 +152,7 @@ export default {
       if (!updatedSession.users) updatedSession.users = [];
 
       updatedSession.users.push(user);
-      this.sessionsRef
-        .doc(session.data().id)
-        .set(updatedSession)
+      SessionService.save(updatedSession)
         .then(() => {
           this.$router.push(this.existentSession.id + "/game");
         })
@@ -172,9 +167,7 @@ export default {
 
       setTimeout(2000);
 
-      this.sessionsRef
-        .doc(this.existentSession.id)
-        .get()
+      SessionService.getById(this.existentSession.id)
         .then(session => {
           this.loginLoading = false;
           if (session.exists) {
