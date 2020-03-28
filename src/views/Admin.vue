@@ -24,7 +24,7 @@
         <h3><font-awesome-icon icon="code-branch" /> {{ sessionName }}</h3>
       </div>
     </div>
-    <div class="row justify-content-md-center" v-if="!gameStarted">
+    <div class="row justify-content-md-center" v-if="!gameStarted && !loading">
       <div class="col-lg-2 col-md-3 col-sm-12 col-12 margin-bottom">
         <div class="layout">
           <h4>Usuários</h4>
@@ -160,20 +160,16 @@ export default {
   mounted() {
     if (this.$route.params.sessionId) {
       SessionService.getById(this.$route.params.sessionId)
-        .then(session => {
-          if (session.exists) {
-            this.sessionId = session.data().id;
-            this.sessionName = session.data().name;
-            this.users = session.data().users.map(u => u.name);
-          } else {
-            this.sessionError = "A sessão informada não existe.";
-          }
+        .then( session => {
+          this.sessionId = session.id;
+          this.sessionName = session.name;
+          this.users = session.users.map(u => u.name);
           this.loading = false;
-        })
-        .catch(function(error) {
+        }, error => {
           this.sessionError = error;
           this.loading = false;
-        });
+        }
+      );
     }
   }
 };

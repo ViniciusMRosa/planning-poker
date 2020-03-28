@@ -142,12 +142,11 @@ export default {
           this.createError = error;
         });
     },
-    async addUserToSession(session) {
+    async addUserToSession(updatedSession) {
       var user = {
         id: Common.generateRandomUUID(),
         name: this.existentSession.nickname
       };
-      var updatedSession = session.data();
 
       if (!updatedSession.users) updatedSession.users = [];
 
@@ -170,15 +169,13 @@ export default {
       SessionService.getById(this.existentSession.id)
         .then(session => {
           this.loginLoading = false;
-          if (session.exists) {
-            this.addUserToSession(session);
-          } else {
-            this.loginError = "A sessão informada não existe.";
-          }
-        })
-        .catch(function(error) {
+          this.addUserToSession(session);
+        },
+        error => {
+          this.loading = false;
           this.loginError = error;
-        });
+        }
+      );
     }
   }
 };
