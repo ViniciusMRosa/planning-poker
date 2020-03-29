@@ -10,6 +10,10 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { faCodeBranch } from "@fortawesome/free-solid-svg-icons";
+import { faUndo } from "@fortawesome/free-solid-svg-icons";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faHourglassEnd } from "@fortawesome/free-solid-svg-icons";
+import { faHandSparkles } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 Vue.config.productionTip = false;
@@ -18,6 +22,10 @@ library.add(faTrashAlt);
 library.add(faCircle);
 library.add(faSpinner);
 library.add(faCodeBranch);
+library.add(faUndo);
+library.add(faPlay);
+library.add(faHourglassEnd);
+library.add(faHandSparkles);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

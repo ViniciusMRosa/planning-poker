@@ -78,6 +78,12 @@ a {
 .margin-top {
     margin-top: 20px;
 }
+.margin-right {
+    margin-right: 20px;
+}
+.margin-left {
+    margin-left: 20px;
+}
 .menu {
     /*
     background: rgb(140,118,220);
@@ -119,7 +125,6 @@ a {
     color: #fff;
     background-color: #8c76dc; 
     border-color: #8c76dc;
-    cursor: pointer;
     box-shadow: 0 0.125rem 0.625rem rgba(52,58,64,0.4), 0 0.0625rem 0.125rem rgba(52,58,64,0.5);
     transition: 0.5s;
 }
@@ -134,7 +139,20 @@ a {
     color: #fff;
     background-color: #b03a46; 
     border-color: #b03a46;
+    box-shadow: 0 0.125rem 0.625rem rgba(52,58,64,0.4), 0 0.0625rem 0.125rem rgba(52,58,64,0.5);
+    transition: 0.5s;
+}
+.btn-gray {
+    color: #6c757d;
+    background-color: #e9ecef;
+    border-color: #e9ecef;
     cursor: pointer;
+    transition: 0.5s;
+}
+.btn-gray:hover, .btn-gray:active, .btn-gray:focus {
+    color: #6c757d;
+    background-color: #dbdfe3; 
+    border-color: #dbdfe3;
     box-shadow: 0 0.125rem 0.625rem rgba(52,58,64,0.4), 0 0.0625rem 0.125rem rgba(52,58,64,0.5);
     transition: 0.5s;
 }
@@ -232,13 +250,10 @@ label {
     font-weight: bold;
 }
 .playing-card{
-    border: 1px solid rgba(0,0,0,.10);
-    border-radius: 5px;
-    height: 150px;
     text-align: center;
     position: relative;
     margin-bottom: 13px;
-    height: 181px;
+    height: 183px;
     width: 125px;
 }
 .playing-card-back {
@@ -267,4 +282,10 @@ label {
     /* Apply 'spinner' keyframes looping once every second (1s)  */
     animation: spinner 2s linear infinite;
     font-size: 20px;
+}
+.alert-gray {
+    border-color: #e9ecef;
+    color: #6c757d;
+    background-color: #e9ecef;
+    border-radius: .25rem;
 }
