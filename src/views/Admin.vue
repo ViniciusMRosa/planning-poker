@@ -13,6 +13,14 @@
           <strong>Ocorreu um erro</strong>
           <br />
           {{ sessionError }}
+          <br />
+          <button
+            type="button"
+            class="btn btn-danger margin-top"
+            v-on:click="returnToHome"
+          >
+            Sair
+          </button>
         </div>
       </div>
     </div>
@@ -108,14 +116,14 @@
           <div class="alert alert-gray" role="alert" v-if="!users.length">
             Nenhum usuário conectado
           </div>
-          <div class="d-flex flex-row bd-highlight mb-3 justify-content-center">
+          <div class="d-flex flex-row mb-3 justify-content-center">
             <div
               v-for="(user, index) in users"
               v-bind:key="index"
-              class="p-2 bd-highlight margin-bottom margin-top"
+              class="p-2 margin-bottom margin-top"
             >
               <font-awesome-icon icon="circle" class="online" /> <strong>{{ user }}</strong>
-              <div class="playing-card playing-card-back">
+              <div class="playing-card" :class="cardStyle">
                 <span class="value">?</span>
               </div>
             </div>
@@ -154,7 +162,8 @@ export default {
       gameStarted: false,
       loading: true,
       sessionError: "",
-      addGameError: ""
+      addGameError: "",
+      cardStyle: "playing-card-back"
     };
   },
   methods: {
