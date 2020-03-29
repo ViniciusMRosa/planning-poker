@@ -169,7 +169,7 @@ export default {
       this.loginLoading = true;
 
       setTimeout(2000);
-      console.log("trying to login with session ", this.existentSession.id);
+
       SessionService.getById(this.existentSession.id)
         .then(session => {
           this.loginLoading = false;
