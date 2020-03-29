@@ -19,7 +19,7 @@
           <small
             v-if="!newSession.name"
             id="newSession.nameHelp"
-            class="form-text text-muted text-danger"
+            class="form-text text-muted text-gray"
             >Campo obrigatório.</small
           >
         </div>
@@ -31,7 +31,7 @@
           :disabled="!newSession.name"
           v-if="!createLoading"
         >
-          Criar
+          Criar <font-awesome-icon icon="hand-sparkles" />
         </button>
         <div v-if="createLoading">
           <font-awesome-icon class="spin" icon="spinner" />
@@ -62,7 +62,7 @@
           <small
             v-if="!existentSession.id"
             id="existentSession.idHelp"
-            class="form-text text-muted text-danger"
+            class="form-text text-muted text-gray"
             >Campo obrigatório.</small
           >
         </div>
@@ -77,7 +77,7 @@
           <small
             v-if="!existentSession.nickname"
             id="existentSession.nicknameHelp"
-            class="form-text text-muted text-danger"
+            class="form-text text-muted text-gray"
             >Campo obrigatório.</small
           >
         </div>
@@ -89,7 +89,7 @@
           :disabled="!existentSession.id || !existentSession.nickname"
           v-if="!loginLoading"
         >
-          Entrar
+          Entrar <font-awesome-icon icon="play" />
         </button>
         <div v-if="loginLoading">
           <font-awesome-icon class="spin" icon="spinner" />

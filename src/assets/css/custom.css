@@ -78,6 +78,12 @@ a {
 .margin-top {
     margin-top: 20px;
 }
+.margin-right {
+    margin-right: 20px;
+}
+.margin-left {
+    margin-left: 20px;
+}
 .menu {
     /*
     background: rgb(140,118,220);
@@ -134,6 +140,21 @@ a {
     color: #fff;
     background-color: #b03a46; 
     border-color: #b03a46;
+    cursor: pointer;
+    box-shadow: 0 0.125rem 0.625rem rgba(52,58,64,0.4), 0 0.0625rem 0.125rem rgba(52,58,64,0.5);
+    transition: 0.5s;
+}
+.btn-gray {
+    color: #fff;
+    background-color: #b4babe;
+    border-color: #b4babe;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.btn-gray:hover, .btn-gray:active, .btn-gray:focus {
+    color: #fff;
+    background-color: #9ea4a8; 
+    border-color: #9ea4a8;
     cursor: pointer;
     box-shadow: 0 0.125rem 0.625rem rgba(52,58,64,0.4), 0 0.0625rem 0.125rem rgba(52,58,64,0.5);
     transition: 0.5s;
