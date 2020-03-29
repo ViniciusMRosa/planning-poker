@@ -51,7 +51,11 @@
           </div>
           <div class="users" v-if="users.length">
             <p v-for="(user, index) in users" v-bind:key="index">
-              <font-awesome-icon icon="circle" class="online" /> {{ user }}
+              <font-awesome-icon
+                icon="circle"
+                class="online min-margin-right"
+              />
+              {{ user }}
             </p>
           </div>
         </div>
@@ -116,25 +120,31 @@
           <div class="alert alert-gray" role="alert" v-if="!game.votes.length">
             Nenhum usuário conectado
           </div>
-          <div class="d-flex flex-row mb-3 justify-content-center">
+          <div
+            class="d-flex flex-wrap flex-row bd-highlight mb-3 justify-content-md-center"
+          >
             <div
               v-for="(vote, index) in game.votes"
               v-bind:key="index"
-              class="p-2 margin-bottom margin-top"
+              class="bd-highlight justify-content-center margin-bottom margin-top p-2"
             >
-              <font-awesome-icon icon="circle" class="online" /> <strong>{{ vote.user.name }}</strong>
+              <font-awesome-icon
+                icon="circle"
+                class="online min-margin-right"
+              />
+              <strong>{{ vote.user.name }}</strong>
               <div
-                class="playing-card playing-card-back"
+                class="playing-card playing-card-back d-flex flex-column justify-content-center"
                 v-if="!vote.number && !shouldShowCards"
               />
               <div
-                class="playing-card playing-card-front"
+                class="playing-card playing-card-front d-flex flex-column justify-content-center"
                 v-if="vote.number && !shouldShowCards"
               >
                 <span class="value">?</span>
               </div>
               <div
-                class="playing-card playing-card-front"
+                class="playing-card playing-card-front d-flex flex-column justify-content-center"
                 v-if="vote.number && shouldShowCards"
               >
                 <span class="value">{{ vote.number }}</span>
