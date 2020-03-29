@@ -72,6 +72,12 @@ a {
 .row, .margin-bottom {
     margin-bottom: 20px;
 }
+.min-margin-bottom {
+    margin-bottom: 7px;
+}
+.margin-top {
+    margin-top: 20px;
+}
 .menu {
     /*
     background: rgb(140,118,220);
@@ -113,6 +119,21 @@ a {
     color: #fff;
     background-color: #8c76dc; 
     border-color: #8c76dc;
+    cursor: pointer;
+    box-shadow: 0 0.125rem 0.625rem rgba(52,58,64,0.4), 0 0.0625rem 0.125rem rgba(52,58,64,0.5);
+    transition: 0.5s;
+}
+.btn-danger {
+    color: #fff;
+    background-color: #d55662;
+    border-color: #d55662;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.btn-danger:hover, .btn-danger:active, .btn-danger:focus {
+    color: #fff;
+    background-color: #b03a46; 
+    border-color: #b03a46;
     cursor: pointer;
     box-shadow: 0 0.125rem 0.625rem rgba(52,58,64,0.4), 0 0.0625rem 0.125rem rgba(52,58,64,0.5);
     transition: 0.5s;
@@ -186,6 +207,24 @@ footer {
     border-radius: 5px;
     padding: 15px;
 }
+.layout-gray {
+    padding: .75rem 1rem;
+    list-style: none;
+    color: #6c757d;
+    background-color: #e9ecef;
+    border-radius: .25rem;
+}
+.layout-white {
+    padding: .75rem 1rem;
+    list-style: none;
+    color: #6c757d;
+    background-color: transparent;
+    border: 3px dotted #e9ecef;
+    border-radius: .25rem;
+}
+hr {
+    border: 1px dotted #e9ecef;
+}
 label {
     font-weight: bold;
 }
@@ -199,10 +238,18 @@ label {
     text-align: center;
     position: relative;
     margin-bottom: 13px;
+    height: 181px;
+    width: 125px;
+}
+.playing-card-back {
+    background: url(../images/card-back.svg) no-repeat;
+    background-size: 100%;
+    color: transparent;
 }
 .playing-card .value{
     font-weight: bold;
-    margin-top: 60px;
+    font-size: 25px;
+    margin-top: 55px;
     position: absolute;
 }
 .online {
