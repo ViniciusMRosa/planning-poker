@@ -250,13 +250,10 @@ label {
     font-weight: bold;
 }
 .playing-card{
-    border: 1px solid rgba(0,0,0,.10);
-    border-radius: 5px;
-    height: 150px;
     text-align: center;
     position: relative;
     margin-bottom: 13px;
-    height: 181px;
+    height: 183px;
     width: 125px;
 }
 .playing-card-back {
