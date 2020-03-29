@@ -4,9 +4,16 @@
       <div class="col-lg-6 col-md-5 col-sm-12 col-12">
         <h3>{{ game ? game.title : "Nenhuma tarefa" }}</h3>
         <div class="layout">
-          <h4>Novo Jogo</h4>
-          <div class="form-group">
-            <label for="exampleInputPassword1">Descrição da Tarefa:</label>
+          <div class="d-flex flex-row bd-highlight mb-3 justify-content-center">
+            <div
+              v-for="(points, index) in points"
+              v-bind:key="index"
+              class="p-2 bd-highlight margin-bottom margin-top"
+            >
+              <div class="playing-card playing-card-back">
+                <span class="value">?</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -25,6 +32,7 @@ export default {
   },
   data() {
     return {
+      points: [1, 2, 3, 5, 8, 13],
       game: {},
       description: "",
       names: [],
@@ -49,19 +57,16 @@ export default {
     },
     refreshSessionData(session) {
       var games = session.games || [];
-      console.log("Games", games);
       this.game = games.pop();
     }
   },
   created() {
-    console.log("Created:", this.$route.params.sessionId);
     SessionService.takeSnapshot(
       this.$route.params.sessionId,
       this.refreshSessionData
     );
   },
   mounted() {
-    console.log("Session:", this.$route.params.sessionId, " user ", this.user);
     if (this.$route.params.names && this.$route.params.description) {
       this.description = this.$route.params.description;
       this.names = this.$route.params.names;
