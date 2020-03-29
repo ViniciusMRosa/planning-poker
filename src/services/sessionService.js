@@ -3,10 +3,32 @@ import { Common } from "../services/commonService.js";
 
 export const SessionService = {
   save: function(session) {
-    return sessionsCollection.doc(session.id).set(session);
+    return new Promise((resolve, reject) => {
+      sessionsCollection
+        .doc(session.id)
+        .set(session)
+        .then(() => resolve())
+        .catch(function() {
+          reject("Ocorreu um erro ao salvar a sessão.");
+        });
+    });
   },
   getById: function(id) {
-    return sessionsCollection.doc(id).get();
+    return new Promise((resolve, reject) => {
+      sessionsCollection
+        .doc(id)
+        .get()
+        .then(session => {
+          if (session.exists) {
+            resolve(session.data());
+          } else {
+            reject("A sessão informada não existe1.");
+          }
+        })
+        .catch(function(error) {
+          reject(error);
+        });
+    });
   },
   addUserToSession: function(sessionData, userName) {
     var user = {

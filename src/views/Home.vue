@@ -110,7 +110,7 @@ export default {
         id: Common.generateRandomUUID(),
         name: "Planejamento de Tarefas",
         users: [],
-        games: [],
+        games: []
       },
       existentSession: {
         id: "",
@@ -130,8 +130,8 @@ export default {
 
       setTimeout(2000);
 
-      SessionService.save(this.newSession)
-        .then(() => {
+      SessionService.save(this.newSession).then(
+        () => {
           this.$router.push({
             path: this.newSession.id + "/admin",
             params: {
@@ -139,10 +139,29 @@ export default {
               sessionId: this.newSession.id
             }
           });
-        })
-        .catch(function(error) {
+        },
+        error => {
           this.createError = error;
-        });
+        }
+      );
+    },
+    async addUserToSession(updatedSession) {
+      var user = {
+        id: Common.generateRandomUUID(),
+        name: this.existentSession.nickname
+      };
+
+      if (!updatedSession.users) updatedSession.users = [];
+
+      updatedSession.users.push(user);
+      SessionService.save(updatedSession).then(
+        () => {
+          this.$router.push(this.existentSession.id + "/game");
+        },
+        error => {
+          this.loginError = error;
+        }
+      );
     },
     login() {
       this.createError = "";
@@ -150,26 +169,28 @@ export default {
       this.loginLoading = true;
 
       setTimeout(2000);
-
       SessionService.getById(this.existentSession.id)
         .then(session => {
           this.loginLoading = false;
           if (session.exists) {
-            SessionService.addUserToSession(session.data(),this.existentSession.nickname)
-              .then((user) => {
-              this.$router.push({
-                name: "Game",
-                params: {
-                  sessionId: this.existentSession.id,
-                  user: user,
-                }
+            SessionService.addUserToSession(
+              session.data(),
+              this.existentSession.nickname
+            )
+              .then(user => {
+                this.$router.push({
+                  name: "Game",
+                  params: {
+                    sessionId: this.existentSession.id,
+                    user: user
+                  }
+                });
+              })
+              .catch(function(error) {
+                this.loginError = error;
               });
-            })
-            .catch(function(error) {
-              this.loginError = error;
-            });
           } else {
-            this.loginError = "A sessão informada não existe.";
+            this.loginError = "A sessão informada não existe2.";
           }
         })
         .catch(function(error) {

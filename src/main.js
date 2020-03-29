@@ -9,6 +9,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faCodeBranch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 Vue.config.productionTip = false;
@@ -16,6 +17,7 @@ Vue.config.productionTip = false;
 library.add(faTrashAlt);
 library.add(faCircle);
 library.add(faSpinner);
+library.add(faCodeBranch);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
