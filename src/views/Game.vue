@@ -54,7 +54,6 @@ export default {
     }
   },
   created() {
-    console.log("Created:", this.$route.params.sessionId);
     SessionService.takeSnapshot(
       this.$route.params.sessionId,
       this.refreshSessionData
