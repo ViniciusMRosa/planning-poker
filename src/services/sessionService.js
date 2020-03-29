@@ -8,20 +8,41 @@ export const SessionService = {
   getById: function(id) {
     return sessionsCollection.doc(id).get();
   },
-  addUserToSession: function(sessionData,userName){
+  addUserToSession: function(sessionData, userName) {
     var user = {
       id: Common.generateRandomUUID(),
       name: userName
     };
     sessionData.users = sessionData.users || [];
     sessionData.users.push(user);
-    console.log(sessionData);
-    const promise = new Promise( ( resolve,reject) => {
+    const promise = new Promise((resolve, reject) => {
       this.save(sessionData)
-      .then(() => resolve(user))
-      .catch((error) => reject(error));
+        .then(() => resolve(user))
+        .catch(error => reject(error));
     });
-    
-   return promise;
+    return promise;
+  },
+  addGame: function(sessionId, game) {
+    const promise = new Promise((resolve, reject) => {
+      this.getById(sessionId).then(session => {
+        var sessionData = session.data();
+        var games = sessionData.games || [];
+        games.push(game);
+        sessionData.games = games;
+        this.save(sessionData)
+          .then(() => resolve(game))
+          .catch(error => reject(error));
+      });
+    });
+    return promise;
+  },
+  takeSnapshot: function(id, success, error) {
+    sessionsCollection.doc(id).onSnapshot(session => {
+      if (session.exists) {
+        success(session);
+      } else {
+        error("Não foi possível obter snapshot da sessão " + id);
+      }
+    });
   }
 };

@@ -108,7 +108,9 @@ export default {
     return {
       newSession: {
         id: Common.generateRandomUUID(),
-        name: "Planejamento de Tarefas"
+        name: "Planejamento de Tarefas",
+        users: [],
+        games: [],
       },
       existentSession: {
         id: "",

@@ -99,7 +99,9 @@
 </template>
 
 <script>
-import { sessionsCollection } from "../main"
+import { SessionService } from "../services/sessionService";
+import { Common } from "../services/commonService";
+
 export default {
   name: "Admin",
   data() {
@@ -113,28 +115,40 @@ export default {
         "Criar front da criação de conta contábil analítica"
       ],
       gameStarted: false,
+      currentGame: null,
       issue: ""
     };
   },
   methods: {
     begin() {
-      this.gameStarted = true;
+      const game = {
+        id: Common.generateRandomUUID(),
+        title: this.issue,
+        votes: []
+      };
+      SessionService.addGame(this.$route.params.sessionId, game).then(game => {
+        this.currentGame = game.id;
+        this.gameStarted = true;
+      });
     },
     end() {
       this.gameStarted = false;
+    },
+    refreshSessionData(session) {
+      if (session.exists) {
+        console.log("Atualização");
+        this.users = session.data().users.map(u => u.name);
+      } else {
+        this.loginError = "A sessão informada não existe.";
+      }
     }
   },
   mounted() {
-    if(this.$route.params.sessionId){
-      sessionsCollection
-        .doc(this.$route.params.sessionId)
-        .onSnapshot(session => {
-          if (session.exists) {
-            this.users =  session.data().users.map( u => u.name);
-          } else {
-            this.loginError = "A sessão informada não existe.";
-          }
-        });
+    if (this.$route.params.sessionId) {
+      SessionService.takeSnapshot(
+        this.$route.params.sessionId,
+        this.refreshSessionData
+      );
     }
 
     if (this.$route.params.description) {
