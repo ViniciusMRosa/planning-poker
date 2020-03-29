@@ -169,7 +169,6 @@ export default {
       this.gameStarted = false;
     },
     refreshSessionData(session) {
-      console.log("passei", session);
       this.session = session;
       this.sessionId = session.id;
       this.sessionName = session.name;
