@@ -148,6 +148,7 @@ export default {
       currentGame: null,
       loading: true,
       sessionError: "",
+      addGameError: "",
       issue: ""
     };
   },
@@ -158,10 +159,14 @@ export default {
         title: this.issue,
         votes: []
       };
-      SessionService.addGame(this.$route.params.sessionId, game).then(game => {
-        this.currentGame = game.id;
-        this.gameStarted = true;
-      });
+      SessionService.addGame(this.$route.params.sessionId, game)
+        .then(game => {
+          this.currentGame = game.id;
+          this.gameStarted = true;
+        })
+        .catch(error => {
+          this.addGameError = error;
+        });
     },
     startGame() {
       if (!this.session.games) this.session.games = [];
@@ -184,7 +189,6 @@ export default {
     },
     refreshSessionData(session) {
       if (session.exists) {
-        console.log("Atualização");
         this.users = session.data().users.map(u => u.name);
       } else {
         this.loginError = "A sessão informada não existe.";
