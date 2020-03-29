@@ -44,7 +44,4 @@ new Vue({
   render: h => h(App)
 }).$mount("#app");
 
-export {
-  fb,
-  sessionsCollection
-}
+export { fb, sessionsCollection };

@@ -108,7 +108,9 @@ export default {
     return {
       newSession: {
         id: Common.generateRandomUUID(),
-        name: "Planejamento de Tarefas"
+        name: "Planejamento de Tarefas",
+        users: [],
+        games: []
       },
       existentSession: {
         id: "",
@@ -128,8 +130,8 @@ export default {
 
       setTimeout(2000);
 
-      SessionService.save(this.newSession)
-        .then(() => {
+      SessionService.save(this.newSession).then(
+        () => {
           this.$router.push({
             path: this.newSession.id + "/admin",
             params: {
@@ -138,7 +140,7 @@ export default {
             }
           });
         },
-        (error) => {
+        error => {
           this.createError = error;
         }
       );
@@ -152,11 +154,11 @@ export default {
       if (!updatedSession.users) updatedSession.users = [];
 
       updatedSession.users.push(user);
-      SessionService.save(updatedSession)
-        .then(() => {
+      SessionService.save(updatedSession).then(
+        () => {
           this.$router.push(this.existentSession.id + "/game");
         },
-        (error) => {
+        error => {
           this.loginError = error;
         }
       );
@@ -167,17 +169,30 @@ export default {
       this.loginLoading = true;
 
       setTimeout(2000);
-
+      console.log("trying to login with session ", this.existentSession.id);
       SessionService.getById(this.existentSession.id)
         .then(session => {
           this.loginLoading = false;
-          this.addUserToSession(session);
-        },
-        error => {
-          this.loading = false;
+          SessionService.addUserToSession(
+            session,
+            this.existentSession.nickname
+          )
+            .then(user => {
+              this.$router.push({
+                name: "Game",
+                params: {
+                  sessionId: this.existentSession.id,
+                  user: user
+                }
+              });
+            })
+            .catch(function(error) {
+              this.loginError = error;
+            });
+        })
+        .catch(function(error) {
           this.loginError = error;
-        }
-      );
+        });
     }
   }
 };

@@ -16,7 +16,10 @@
         </div>
       </div>
     </div>
-    <div class="row justify-content-md-center" v-if="!loading && !gameStarted && !sessionError">
+    <div
+      class="row justify-content-md-center"
+      v-if="!loading && !gameStarted && !sessionError"
+    >
       <div class="col-lg-8 col-md-10 col-sm-12 col-12">
         <div class="layout-gray">
           <strong>http://localhost:8080/{{ sessionId }}/registry</strong>
@@ -28,7 +31,10 @@
         <h3><font-awesome-icon icon="code-branch" /> {{ sessionName }}</h3>
       </div>
     </div>
-    <div class="row justify-content-md-center" v-if="!gameStarted && !loading && !sessionError">
+    <div
+      class="row justify-content-md-center"
+      v-if="!gameStarted && !loading && !sessionError"
+    >
       <div class="col-lg-2 col-md-3 col-sm-12 col-12 margin-bottom">
         <div class="layout">
           <h4>Usuários</h4>
@@ -122,7 +128,9 @@
 </template>
 
 <script>
-import { SessionService } from "../services/sessionService.js";
+import { SessionService } from "../services/sessionService";
+import { Common } from "../services/commonService";
+
 export default {
   name: "Admin",
   data() {
@@ -137,21 +145,38 @@ export default {
         votes: []
       },
       gameStarted: false,
+      currentGame: null,
       loading: true,
       sessionError: "",
+      addGameError: "",
       issue: ""
     };
   },
   methods: {
+    begin() {
+      const game = {
+        id: Common.generateRandomUUID(),
+        title: this.issue,
+        votes: []
+      };
+      SessionService.addGame(this.$route.params.sessionId, game)
+        .then(game => {
+          this.currentGame = game.id;
+          this.gameStarted = true;
+        })
+        .catch(error => {
+          this.addGameError = error;
+        });
+    },
     startGame() {
       if (!this.session.games) this.session.games = [];
 
       this.session.games.push(this.game);
-      SessionService.save(this.session)
-        .then(() => {
+      SessionService.save(this.session).then(
+        () => {
           this.gameStarted = true;
         },
-        (error) => {
+        error => {
           this.sessionError = error;
         }
       );
@@ -161,23 +186,31 @@ export default {
     },
     deleteGame() {
       this.gameStarted = false;
+    },
+    refreshSessionData(session) {
+      if (session.exists) {
+        this.users = session.data().users.map(u => u.name);
+      } else {
+        this.loginError = "A sessão informada não existe.";
+      }
     }
   },
   mounted() {
     if (this.$route.params.sessionId) {
-      SessionService.getById(this.$route.params.sessionId)
-        .then( session => {
+      SessionService.getById(this.$route.params.sessionId).then(
+        session => {
           this.session = session;
           this.sessionId = session.id;
           this.sessionName = session.name;
-          if(session.users) {
+          if (session.users) {
             this.users = session.users.map(u => u.name);
           }
-          if(session.games) {
+          if (session.games) {
             this.games = session.games.map(g => g.title);
           }
           this.loading = false;
-        }, error => {
+        },
+        error => {
           this.sessionError = error;
           this.loading = false;
         }

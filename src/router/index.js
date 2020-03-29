@@ -19,8 +19,11 @@ const routes = [
     component: Admin
   },
   {
+    name: "Game",
     path: "/:sessionId/game",
-    component: Game
+    component: Game,
+    props: true,
+
   },
   {
     path: "/:sessionId/registry",
