@@ -49,7 +49,6 @@ export default {
     },
     refreshSessionData(session) {
       var games = session.games || [];
-      console.log("Games", games);
       this.game = games.pop();
     }
   },
