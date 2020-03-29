@@ -252,7 +252,6 @@ label {
 .playing-card{
     text-align: center;
     position: relative;
-    margin-bottom: 13px;
     height: 183px;
     width: 125px;
 }
@@ -264,8 +263,6 @@ label {
 .playing-card .value{
     font-weight: bold;
     font-size: 25px;
-    margin-top: 55px;
-    position: absolute;
 }
 .online {
     color: #0acf97;

@@ -1,17 +1,19 @@
 <template>
-  <div class="container-fluid home">
-    <div class="row justify-content-md-center">
-      <div class="col-lg-6 col-md-5 col-sm-12 col-12">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-12">
         <h3>{{ game ? game.title : "Nenhuma tarefa" }}</h3>
         <div class="layout">
-          <div class="d-flex flex-row bd-highlight mb-3 justify-content-center">
+          <div class="d-flex flex-wrap flex-row bd-highlight mb-3">
             <div
-              v-for="(points, index) in points"
+              v-for="(point, index) in points"
               v-bind:key="index"
-              class="p-2 bd-highlight margin-bottom margin-top"
+              class="bd-highlight justify-content-center margin-bottom margin-top p-2"
             >
-              <div class="playing-card playing-card-back">
-                <span class="value">?</span>
+              <div
+                class="playing-card playing-card-back d-flex flex-column justify-content-center"
+              >
+                <span class="value">{{ point }}</span>
               </div>
             </div>
           </div>
@@ -32,7 +34,7 @@ export default {
   },
   data() {
     return {
-      points: [1, 2, 3, 5, 8, 13],
+      points: [1, 2, 3, 5, 8, 13, 21, 34],
       game: {},
       description: "",
       names: [],
