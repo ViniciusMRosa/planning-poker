@@ -14,6 +14,7 @@ import { faUndo } from "@fortawesome/free-solid-svg-icons";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { faHourglassEnd } from "@fortawesome/free-solid-svg-icons";
 import { faHandSparkles } from "@fortawesome/free-solid-svg-icons";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 Vue.config.productionTip = false;
@@ -26,6 +27,7 @@ library.add(faUndo);
 library.add(faPlay);
 library.add(faHourglassEnd);
 library.add(faHandSparkles);
+library.add(faEye);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

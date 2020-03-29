@@ -113,18 +113,31 @@
         <div class="layout">
           <label>Descrição da Tarefa:</label>
           <h4>{{ game.title }}</h4>
-          <div class="alert alert-gray" role="alert" v-if="!users.length">
+          <div class="alert alert-gray" role="alert" v-if="!game.votes.length">
             Nenhum usuário conectado
           </div>
           <div class="d-flex flex-row mb-3 justify-content-center">
             <div
-              v-for="(user, index) in users"
+              v-for="(vote, index) in game.votes"
               v-bind:key="index"
               class="p-2 margin-bottom margin-top"
             >
-              <font-awesome-icon icon="circle" class="online" /> <strong>{{ user }}</strong>
-              <div class="playing-card" :class="cardStyle">
+              <font-awesome-icon icon="circle" class="online" /> <strong>{{ vote.user.name }}</strong>
+              <div
+                class="playing-card playing-card-back"
+                v-if="!vote.number && !shouldShowCards"
+              />
+              <div
+                class="playing-card playing-card-front"
+                v-if="vote.number && !shouldShowCards"
+              >
                 <span class="value">?</span>
+              </div>
+              <div
+                class="playing-card playing-card-front"
+                v-if="vote.number && shouldShowCards"
+              >
+                <span class="value">{{ vote.number }}</span>
               </div>
             </div>
           </div>
@@ -134,6 +147,13 @@
             v-on:click="finishGame"
           >
             Encerrar <font-awesome-icon icon="hourglass-end" />
+          </button>
+          <button
+            type="button"
+            class="btn btn-app margin-bottom margin-left"
+            v-on:click="showCards"
+          >
+            Mostrar Cartas <font-awesome-icon icon="eye" />
           </button>
         </div>
       </div>
@@ -160,17 +180,19 @@ export default {
         votes: []
       },
       gameStarted: false,
+      shouldShowCards: false,
       loading: true,
       sessionError: "",
-      addGameError: "",
-      cardStyle: "playing-card-back"
+      addGameError: ""
     };
   },
   methods: {
     startGame() {
       SessionService.addGame(this.session, this.game).then(
-        () => {
+        game => {
+          this.game = game;
           this.gameStarted = true;
+          this.shouldShowCards = false;
         },
         error => {
           this.sessionError = error;
@@ -179,6 +201,10 @@ export default {
     },
     finishGame() {
       this.gameStarted = false;
+    },
+    showCards() {
+      this.game.votes[0].number = 3;
+      this.shouldShowCards = true;
     },
     deleteGame() {
       SessionService.delete(this.session).then(
