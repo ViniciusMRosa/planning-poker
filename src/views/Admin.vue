@@ -38,7 +38,7 @@
       <div class="col-lg-2 col-md-3 col-sm-12 col-12 margin-bottom">
         <div class="layout">
           <h4>Usuários</h4>
-          <div class="alert alert-info" role="alert" v-if="!users.length">
+          <div class="alert alert-gray" role="alert" v-if="!users.length">
             Nenhum usuário conectado
           </div>
           <div class="users" v-if="users.length">
@@ -66,7 +66,7 @@
               v-on:click="startGame"
               :disabled="!game.title"
             >
-              Começar
+              Começar <font-awesome-icon icon="play" />
             </button>
           </div>
         </div>
@@ -88,6 +88,13 @@
         <br />
         <hr />
         <br />
+        <button
+          type="button"
+          class="btn btn-gray margin-right"
+          v-on:click="returnToHome"
+        >
+          Voltar <font-awesome-icon icon="undo" />
+        </button>
         <button type="button" class="btn btn-danger" v-on:click="deleteGame">
           Excluir Sessão <font-awesome-icon icon="trash-alt" />
         </button>
@@ -98,7 +105,7 @@
         <div class="layout">
           <label>Descrição da Tarefa:</label>
           <h4>{{ game.title }}</h4>
-          <div class="alert alert-info" role="alert" v-if="!users.length">
+          <div class="alert alert-gray" role="alert" v-if="!users.length">
             Nenhum usuário conectado
           </div>
           <div class="d-flex flex-row bd-highlight mb-3 justify-content-center">
@@ -116,7 +123,7 @@
           <div class="row justify-content-md-center">
             <div class="col-lg-8 col-md-10 col-sm-12 col-12">
               <button type="button" class="btn btn-app" v-on:click="finishGame">
-                Encerrar
+                Encerrar <font-awesome-icon icon="hourglass-end" />
               </button>
             </div>
           </div>
@@ -166,7 +173,12 @@ export default {
       this.gameStarted = false;
     },
     deleteGame() {
-      this.gameStarted = false;
+      SessionService.delete(this.session).then(
+        () => this.returnToHome(),
+        error => {
+          this.sessionError = error;
+        }
+      );
     },
     refreshSessionData(session) {
       this.session = session;
@@ -179,6 +191,9 @@ export default {
         this.games = session.games.map(g => g.title);
       }
       this.loading = false;
+    },
+    returnToHome() {
+      this.$router.push("/");
     }
   },
   mounted() {

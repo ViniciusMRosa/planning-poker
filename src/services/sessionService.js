@@ -13,6 +13,17 @@ export const SessionService = {
         });
     });
   },
+  delete: function(session) {
+    return new Promise((resolve, reject) => {
+      sessionsCollection
+        .doc(session.id)
+        .delete()
+        .then(() => resolve())
+        .catch(function() {
+          reject("Ocorreu um erro ao excluir a sessão.");
+        });
+    });
+  },
   getById: function(id) {
     return new Promise((resolve, reject) => {
       sessionsCollection
