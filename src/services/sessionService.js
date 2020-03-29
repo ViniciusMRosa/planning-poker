@@ -44,23 +44,21 @@ export const SessionService = {
     });
     return promise;
   },
-  addGame: function(sessionId, game) {
+  addGame: function(session, game) {
     const promise = new Promise((resolve, reject) => {
-      this.getById(sessionId).then(sessionData => {
-        var games = sessionData.games || [];
-        games.push(game);
-        sessionData.games = games;
-        this.save(sessionData)
-          .then(() => resolve(game))
-          .catch(error => reject(error));
-      });
+      game.id = Common.generateRandomUUID();
+      session.games = session.games || [];
+      session.games.push(game);
+      this.save(session)
+        .then(() => resolve(game))
+        .catch(error => reject(error));
     });
     return promise;
   },
   takeSnapshot: function(id, success, error) {
     sessionsCollection.doc(id).onSnapshot(session => {
       if (session.exists) {
-        success(session);
+        success(session.data());
       } else {
         error("Não foi possível obter snapshot da sessão " + id);
       }

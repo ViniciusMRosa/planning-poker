@@ -48,14 +48,17 @@ export default {
       this.names.splice(index, 1);
     },
     refreshSessionData(session) {
-      var games = session.data().games || [];
+      var games = session.games || [];
       console.log("Games", games);
       this.game = games.pop();
     }
   },
   created() {
     console.log("Created:", this.$route.params.sessionId);
-    SessionService.takeSnapshot(this.$route.params.sessionId, this.refreshSessionData);
+    SessionService.takeSnapshot(
+      this.$route.params.sessionId,
+      this.refreshSessionData
+    );
   },
   mounted() {
     console.log("Session:", this.$route.params.sessionId, " user ", this.user);

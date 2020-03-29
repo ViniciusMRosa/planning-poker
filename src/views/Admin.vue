@@ -129,7 +129,6 @@
 
 <script>
 import { SessionService } from "../services/sessionService";
-import { Common } from "../services/commonService";
 
 export default {
   name: "Admin",
@@ -141,11 +140,11 @@ export default {
       users: [],
       games: [],
       game: {
+        id: "",
         title: "",
         votes: []
       },
       gameStarted: false,
-      currentGame: null,
       loading: true,
       sessionError: "",
       addGameError: "",
@@ -153,26 +152,8 @@ export default {
     };
   },
   methods: {
-    begin() {
-      const game = {
-        id: Common.generateRandomUUID(),
-        title: this.issue,
-        votes: []
-      };
-      SessionService.addGame(this.$route.params.sessionId, game)
-        .then(game => {
-          this.currentGame = game.id;
-          this.gameStarted = true;
-        })
-        .catch(error => {
-          this.addGameError = error;
-        });
-    },
     startGame() {
-      if (!this.session.games) this.session.games = [];
-
-      this.session.games.push(this.game);
-      SessionService.save(this.session).then(
+      SessionService.addGame(this.session, this.game).then(
         () => {
           this.gameStarted = true;
         },
@@ -188,28 +169,24 @@ export default {
       this.gameStarted = false;
     },
     refreshSessionData(session) {
-      if (session.exists) {
-        this.users = session.data().users.map(u => u.name);
-      } else {
-        this.loginError = "A sessão informada não existe.";
+      console.log("passei", session);
+      this.session = session;
+      this.sessionId = session.id;
+      this.sessionName = session.name;
+      if (session.users) {
+        this.users = session.users.map(u => u.name);
       }
+      if (session.games) {
+        this.games = session.games.map(g => g.title);
+      }
+      this.loading = false;
     }
   },
   mounted() {
     if (this.$route.params.sessionId) {
-      SessionService.getById(this.$route.params.sessionId).then(
-        session => {
-          this.session = session;
-          this.sessionId = session.id;
-          this.sessionName = session.name;
-          if (session.users) {
-            this.users = session.users.map(u => u.name);
-          }
-          if (session.games) {
-            this.games = session.games.map(g => g.title);
-          }
-          this.loading = false;
-        },
+      SessionService.takeSnapshot(
+        this.$route.params.sessionId,
+        this.refreshSessionData,
         error => {
           this.sessionError = error;
           this.loading = false;
