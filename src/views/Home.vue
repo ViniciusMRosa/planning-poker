@@ -169,29 +169,26 @@ export default {
       this.loginLoading = true;
 
       setTimeout(2000);
+      console.log("trying to login with session ", this.existentSession.id);
       SessionService.getById(this.existentSession.id)
         .then(session => {
           this.loginLoading = false;
-          if (session.exists) {
-            SessionService.addUserToSession(
-              session.data(),
-              this.existentSession.nickname
-            )
-              .then(user => {
-                this.$router.push({
-                  name: "Game",
-                  params: {
-                    sessionId: this.existentSession.id,
-                    user: user
-                  }
-                });
-              })
-              .catch(function(error) {
-                this.loginError = error;
+          SessionService.addUserToSession(
+            session,
+            this.existentSession.nickname
+          )
+            .then(user => {
+              this.$router.push({
+                name: "Game",
+                params: {
+                  sessionId: this.existentSession.id,
+                  user: user
+                }
               });
-          } else {
-            this.loginError = "A sessão informada não existe.";
-          }
+            })
+            .catch(function(error) {
+              this.loginError = error;
+            });
         })
         .catch(function(error) {
           this.loginError = error;

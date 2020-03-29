@@ -46,8 +46,7 @@ export const SessionService = {
   },
   addGame: function(sessionId, game) {
     const promise = new Promise((resolve, reject) => {
-      this.getById(sessionId).then(session => {
-        var sessionData = session.data();
+      this.getById(sessionId).then(sessionData => {
         var games = sessionData.games || [];
         games.push(game);
         sessionData.games = games;
