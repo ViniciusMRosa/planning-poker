@@ -123,8 +123,8 @@ a {
 }
 .btn-app:hover, .btn-app:active, .btn-app:focus {
     color: #fff;
-    background-color: #8c76dc; 
-    border-color: #8c76dc;
+    background-color: #646cd1; 
+    border-color: #646cd1;
     box-shadow: 0 0.125rem 0.625rem rgba(52,58,64,0.4), 0 0.0625rem 0.125rem rgba(52,58,64,0.5);
     transition: 0.5s;
 }

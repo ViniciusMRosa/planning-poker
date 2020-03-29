@@ -13,6 +13,14 @@
           <strong>Ocorreu um erro</strong>
           <br />
           {{ sessionError }}
+          <br />
+          <button
+            type="button"
+            class="btn btn-danger margin-top"
+            v-on:click="returnToHome"
+          >
+            Sair
+          </button>
         </div>
       </div>
     </div>
