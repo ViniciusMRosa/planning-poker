@@ -101,7 +101,7 @@
       </div>
     </div>
     <div class="row justify-content-md-center" v-if="gameStarted">
-      <div class="col-lg-8 col-md-8 col-sm-12 col-12">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="layout">
           <label>Descrição da Tarefa:</label>
           <h4>{{ game.title }}</h4>
@@ -114,19 +114,19 @@
               v-bind:key="index"
               class="p-2 bd-highlight margin-bottom margin-top"
             >
-              <font-awesome-icon icon="circle" class="online" /> {{ user }}
+              <font-awesome-icon icon="circle" class="online" /> <strong>{{ user }}</strong>
               <div class="playing-card playing-card-back">
                 <span class="value">?</span>
               </div>
             </div>
           </div>
-          <div class="row justify-content-md-center">
-            <div class="col-lg-8 col-md-10 col-sm-12 col-12">
-              <button type="button" class="btn btn-app" v-on:click="finishGame">
-                Encerrar <font-awesome-icon icon="hourglass-end" />
-              </button>
-            </div>
-          </div>
+          <button
+            type="button"
+            class="btn btn-gray margin-bottom"
+            v-on:click="finishGame"
+          >
+            Encerrar <font-awesome-icon icon="hourglass-end" />
+          </button>
         </div>
       </div>
     </div>
@@ -154,8 +154,7 @@ export default {
       gameStarted: false,
       loading: true,
       sessionError: "",
-      addGameError: "",
-      issue: ""
+      addGameError: ""
     };
   },
   methods: {
