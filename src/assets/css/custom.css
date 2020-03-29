@@ -125,7 +125,6 @@ a {
     color: #fff;
     background-color: #8c76dc; 
     border-color: #8c76dc;
-    cursor: pointer;
     box-shadow: 0 0.125rem 0.625rem rgba(52,58,64,0.4), 0 0.0625rem 0.125rem rgba(52,58,64,0.5);
     transition: 0.5s;
 }
@@ -140,22 +139,20 @@ a {
     color: #fff;
     background-color: #b03a46; 
     border-color: #b03a46;
-    cursor: pointer;
     box-shadow: 0 0.125rem 0.625rem rgba(52,58,64,0.4), 0 0.0625rem 0.125rem rgba(52,58,64,0.5);
     transition: 0.5s;
 }
 .btn-gray {
-    color: #fff;
-    background-color: #b4babe;
-    border-color: #b4babe;
+    color: #6c757d;
+    background-color: #e9ecef;
+    border-color: #e9ecef;
     cursor: pointer;
     transition: 0.5s;
 }
 .btn-gray:hover, .btn-gray:active, .btn-gray:focus {
-    color: #fff;
-    background-color: #9ea4a8; 
-    border-color: #9ea4a8;
-    cursor: pointer;
+    color: #6c757d;
+    background-color: #dbdfe3; 
+    border-color: #dbdfe3;
     box-shadow: 0 0.125rem 0.625rem rgba(52,58,64,0.4), 0 0.0625rem 0.125rem rgba(52,58,64,0.5);
     transition: 0.5s;
 }
@@ -288,4 +285,10 @@ label {
     /* Apply 'spinner' keyframes looping once every second (1s)  */
     animation: spinner 2s linear infinite;
     font-size: 20px;
+}
+.alert-gray {
+    border-color: #e9ecef;
+    color: #6c757d;
+    background-color: #e9ecef;
+    border-radius: .25rem;
 }

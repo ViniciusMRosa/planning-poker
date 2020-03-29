@@ -38,7 +38,7 @@
       <div class="col-lg-2 col-md-3 col-sm-12 col-12 margin-bottom">
         <div class="layout">
           <h4>Usuários</h4>
-          <div class="alert alert-info" role="alert" v-if="!users.length">
+          <div class="alert alert-gray" role="alert" v-if="!users.length">
             Nenhum usuário conectado
           </div>
           <div class="users" v-if="users.length">
@@ -105,7 +105,7 @@
         <div class="layout">
           <label>Descrição da Tarefa:</label>
           <h4>{{ game.title }}</h4>
-          <div class="alert alert-info" role="alert" v-if="!users.length">
+          <div class="alert alert-gray" role="alert" v-if="!users.length">
             Nenhum usuário conectado
           </div>
           <div class="d-flex flex-row bd-highlight mb-3 justify-content-center">
