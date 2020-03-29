@@ -174,9 +174,7 @@ export default {
     },
     deleteGame() {
       SessionService.delete(this.session).then(
-        () => {
-          this.returnToHome();
-        },
+        () => this.returnToHome(),
         error => {
           this.sessionError = error;
         }
