@@ -190,7 +190,7 @@ export default {
                 this.loginError = error;
               });
           } else {
-            this.loginError = "A sessão informada não existe2.";
+            this.loginError = "A sessão informada não existe.";
           }
         })
         .catch(function(error) {
