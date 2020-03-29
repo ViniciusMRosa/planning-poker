@@ -22,7 +22,7 @@ export const SessionService = {
           if (session.exists) {
             resolve(session.data());
           } else {
-            reject("A sessão informada não existe1.");
+            reject("A sessão informada não existe.");
           }
         })
         .catch(function(error) {
