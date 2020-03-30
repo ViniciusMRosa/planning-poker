@@ -58,6 +58,7 @@ export const SessionService = {
   addGame: function(session, game) {
     const promise = new Promise((resolve, reject) => {
       game.id = Common.generateRandomUUID();
+      game.votes = createVotes(session.users);
       session.games = session.games || [];
       session.games.push(game);
       this.save(session)
@@ -76,3 +77,19 @@ export const SessionService = {
     });
   }
 };
+
+function createVotes(users) {
+  let votes = [];
+
+  if (users) {
+    users.forEach(function(user) {
+      var vote = {
+        user: user,
+        number: 0
+      };
+      votes.push(vote);
+    });
+  }
+
+  return votes;
+}
