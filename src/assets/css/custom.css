@@ -73,7 +73,10 @@ a {
     margin-bottom: 20px;
 }
 .min-margin-bottom {
-    margin-bottom: 7px;
+    margin-bottom: 6px;
+}
+.min-margin-right {
+    margin-right: 2px;
 }
 .margin-top {
     margin-top: 20px;
