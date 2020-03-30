@@ -78,7 +78,7 @@
               v-on:click="startGame"
               :disabled="!game.title"
             >
-              Começar <font-awesome-icon icon="play" />
+              Começar <font-awesome-icon icon="play-circle" />
             </button>
           </div>
         </div>
