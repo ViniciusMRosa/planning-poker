@@ -213,7 +213,6 @@ export default {
       this.gameStarted = false;
     },
     showCards() {
-      this.game.votes[0].number = 3;
       this.shouldShowCards = true;
     },
     deleteGame() {
