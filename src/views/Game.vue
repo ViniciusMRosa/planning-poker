@@ -11,7 +11,7 @@
               class="bd-highlight justify-content-center margin-bottom margin-top p-2"
             >
               <div
-                class="playing-card playing-card-back d-flex flex-column justify-content-center"
+                class="playing-card playing-card-front d-flex flex-column justify-content-center"
               >
                 <span class="value">{{ point }}</span>
               </div>
@@ -26,9 +26,10 @@
 
 <script>
 import { SessionService } from "../services/sessionService.js";
+import { Common } from "../services/commonService";
 
 export default {
-  name: "Home",
+  name: "Game",
   props: {
     user: Object
   },
