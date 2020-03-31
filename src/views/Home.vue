@@ -281,7 +281,8 @@ export default {
       this.loginAdminError = "";
     }
   },
-  watch:{ 
+  watch: {
+    // eslint-disable-next-line
     "showAdminForm"(newValue){
       if (newValue === false) {
         this.loginAdminError = "";

@@ -236,17 +236,28 @@ footer {
     list-style: none;
     color: #6c757d;
     background-color: transparent;
-    border: 3px dotted #e9ecef;
+    border: 3px dashed #e9ecef;
     border-radius: .25rem;
 }
 hr {
-    border: 1px dotted #e9ecef;
+    border: 1px dashed #e9ecef;
 }
 label {
     font-weight: bold;
 }
 .users {
     font-weight: bold;
+}
+.btn-delete-user {
+    margin-top: 3px;
+    margin-right: 10px;
+    cursor: pointer;
+    color: #e9ecef;
+    transition: 0.5s;
+}
+.btn-delete-user:hover {
+    color: #d55662;
+    transition: 0.5s;
 }
 .playing-card{
     text-align: center;
