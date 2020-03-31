@@ -75,6 +75,20 @@ export const SessionService = {
         error("Não foi possível obter snapshot da sessão " + id);
       }
     });
+  },
+  vote: function(sessionId, game, vote) {
+    return new Promise((resolve, reject) => {
+      this.getById(sessionId).then(session => {
+        var foundGame = session.games.findIndex(g => g.id == game.id);
+        var foundVote = session.games[foundGame].votes.findIndex(
+          v => v.user.id === vote.user.id
+        );
+        session.games[foundGame].votes[foundVote] = vote;
+        this.save(session)
+          .then(() => resolve(vote))
+          .catch(error => reject(error));
+      });
+    });
   }
 };
 
