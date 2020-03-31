@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid home">
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-md-center" v-if="!showAdminForm">
       <div class="col-lg-5 col-md-5 col-sm-8 col-12">
         <h3>Nova Sessão</h3>
         <div class="alert alert-danger" role="alert" v-if="createError">
@@ -39,7 +39,7 @@
         <hr />
       </div>
     </div>
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-md-center" v-if="!showAdminForm">
       <div class="col-lg-5 col-md-5 col-sm-8 col-12">
         <h3>Entrar em uma sessão existente</h3>
         <div
@@ -89,9 +89,67 @@
           :disabled="!existentSession.id || !existentSession.nickname"
           v-if="!loginLoading"
         >
-          Entrar <font-awesome-icon icon="play" />
+          Entrar <font-awesome-icon icon="play-circle" />
         </button>
         <div v-if="loginLoading">
+          <font-awesome-icon class="spin" icon="spinner" />
+        </div>
+        <hr />
+      </div>
+    </div>
+    <div class="row justify-content-md-center">
+      <div class="col-lg-5 col-md-5 col-sm-8 col-12">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="defaultCheck1"
+            v-model="showAdminForm"
+          />
+          <label class="form-check-label" for="defaultCheck1">
+            Sou Administrador
+          </label>
+        </div>
+        <div
+          class="alert alert-danger text-left margin-top"
+          role="alert"
+          v-if="loginAdminError"
+        >
+          <strong>Ocorreu um erro</strong>
+          <br />
+          {{ loginAdminError }}
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-md-center" v-if="showAdminForm">
+      <div class="col-lg-5 col-md-5 col-sm-8 col-12">
+        <div class="form-group">
+          <label>Id da Sessão:</label>
+          <input
+            type="text"
+            class="form-control text-center"
+            id="existentSession.id"
+            v-model="existentSession.id"
+          />
+          <small
+            v-if="!existentSession.id"
+            id="existentSession.nicknameHelp"
+            class="form-text text-muted text-gray"
+            >Campo obrigatório.</small
+          >
+        </div>
+        <button
+          id="loginButton"
+          type="button"
+          class="btn btn-app btn-lg"
+          v-on:click="loginAdmin"
+          :disabled="!existentSession.id"
+          v-if="!loginAdminLoading"
+        >
+          Entrar <font-awesome-icon icon="cogs" />
+        </button>
+        <div v-if="loginAdminLoading">
           <font-awesome-icon class="spin" icon="spinner" />
         </div>
       </div>
@@ -116,16 +174,18 @@ export default {
         id: "",
         nickname: ""
       },
+      showAdminForm: false,
       createError: "",
       loginError: "",
+      loginAdminError: "",
       createLoading: false,
-      loginLoading: false
+      loginLoading: false,
+      loginAdminLoading: false
     };
   },
   methods: {
     create() {
-      this.createError = "";
-      this.loginError = "";
+      this.clearErrors();
       this.createLoading = true;
 
       setTimeout(2000);
@@ -141,6 +201,7 @@ export default {
           });
         },
         error => {
+          this.createLoading = false;
           this.createError = error;
         }
       );
@@ -164,20 +225,19 @@ export default {
       );
     },
     login() {
-      this.createError = "";
-      this.loginError = "";
+      this.clearErrors();
       this.loginLoading = true;
 
       setTimeout(2000);
 
-      SessionService.getById(this.existentSession.id)
-        .then(session => {
+      SessionService.getById(this.existentSession.id).then(
+        session => {
           this.loginLoading = false;
           SessionService.addUserToSession(
             session,
             this.existentSession.nickname
-          )
-            .then(user => {
+          ).then(
+            user => {
               this.$router.push({
                 name: "Game",
                 params: {
@@ -185,14 +245,47 @@ export default {
                   user: user
                 }
               });
-            })
-            .catch(function(error) {
+            },
+            error => {
+              this.loginLoading = false;
               this.loginError = error;
-            });
-        })
-        .catch(function(error) {
+            }
+          );
+        },
+        error => {
+          this.loginLoading = false;
           this.loginError = error;
-        });
+        }
+      );
+    },
+    loginAdmin() {
+      this.clearErrors();
+      this.loginAdminLoading = true;
+
+      setTimeout(2000);
+
+      SessionService.getById(this.existentSession.id).then(
+        session => {
+          this.loginAdminLoading = false;
+          this.$router.push(session.id + "/admin");
+        },
+        error => {
+          this.loginAdminError = error;
+          this.loginAdminLoading = false;
+        }
+      );
+    },
+    clearErrors() {
+      this.createError = "";
+      this.loginError = "";
+      this.loginAdminError = "";
+    }
+  },
+  watch:{ 
+    "showAdminForm"(newValue){
+      if (newValue === false) {
+        this.loginAdminError = "";
+      }
     }
   }
 };
