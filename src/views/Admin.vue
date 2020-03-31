@@ -49,7 +49,7 @@
           <div class="alert alert-gray" role="alert" v-if="!users.length">
             Nenhum usuário conectado
           </div>
-          <div class="users" v-if="users.length">
+          <div class="text-bold" v-if="users.length">
             <p v-for="(user, index) in users" v-bind:key="index">
               <font-awesome-icon icon="circle" class="online" />
               {{ user }}
@@ -91,11 +91,16 @@
         <br />
         <h5>Tarefas Estimadas:</h5>
         <div
-          class="layout-white min-margin-bottom"
+          class="layout-dashed min-margin-bottom"
           v-for="(game, index) in games"
           v-bind:key="index"
         >
-          <strong>{{ game }}</strong>
+          <span class="game">{{ game }}</span>
+          <font-awesome-icon
+            icon="times"
+            class="float-right btn-delete-user"
+            v-on:click="deleteGame(index)"
+          />
         </div>
       </div>
       <div class="col-lg-8 col-md-10 col-sm-12 col-12">
@@ -109,7 +114,7 @@
         >
           Voltar <font-awesome-icon icon="undo" />
         </button>
-        <button type="button" class="btn btn-danger" v-on:click="deleteGame">
+        <button type="button" class="btn btn-danger" v-on:click="deleteSession">
           Excluir Sessão <font-awesome-icon icon="trash-alt" />
         </button>
       </div>
@@ -134,7 +139,7 @@
                 icon="circle"
                 class="online min-margin-right"
               />
-              <span class="users">{{ vote.user.name }}</span>
+              <span class="text-bold">{{ vote.user.name }}</span>
               <div
                 class="playing-card playing-card-back d-flex flex-column justify-content-center"
                 v-if="!vote.number && !shouldShowCards"
@@ -217,7 +222,7 @@ export default {
     showCards() {
       this.shouldShowCards = true;
     },
-    deleteGame() {
+    deleteSession() {
       SessionService.delete(this.session).then(
         () => this.returnToHome(),
         error => {
@@ -242,6 +247,13 @@ export default {
     },
     deleteUser(index) {
       this.session.users.splice(index, 1);
+      this.saveSession();
+    },
+    deleteGame(index) {
+      this.session.games.splice(index, 1);
+      this.saveSession();
+    },
+    saveSession() {
       SessionService.save(this.session).then(
         () => {},
         error => {

@@ -231,7 +231,7 @@ footer {
     background-color: #e9ecef;
     border-radius: .25rem;
 }
-.layout-white {
+.layout-dashed {
     padding: .75rem 1rem;
     list-style: none;
     color: #6c757d;
@@ -245,14 +245,18 @@ hr {
 label {
     font-weight: bold;
 }
-.users {
+.game {
+    font-weight: bold;
+    color: rgba(0,0,0,.23);
+}
+.text-bold {
     font-weight: bold;
 }
 .btn-delete-user {
     margin-top: 3px;
     margin-right: 10px;
     cursor: pointer;
-    color: #e9ecef;
+    color: rgba(0,0,0,.15);
     transition: 0.5s;
 }
 .btn-delete-user:hover {
