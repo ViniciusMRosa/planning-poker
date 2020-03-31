@@ -30,7 +30,7 @@
     >
       <div class="col-lg-8 col-md-10 col-sm-12 col-12">
         <div class="layout-gray">
-          <strong>http://localhost:8080/{{ sessionId }}/registry</strong>
+          <strong>{{ sessionId }}</strong>
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@
       class="row justify-content-md-center"
       v-if="!gameStarted && !loading && !sessionError"
     >
-      <div class="col-lg-2 col-md-3 col-sm-12 col-12 margin-bottom">
+      <div class="col-lg-2 col-md-3 col-sm-3 col-12 margin-bottom">
         <div class="layout">
           <h4>Usuários</h4>
           <div class="alert alert-gray" role="alert" v-if="!users.length">
@@ -51,16 +51,18 @@
           </div>
           <div class="users" v-if="users.length">
             <p v-for="(user, index) in users" v-bind:key="index">
-              <font-awesome-icon
-                icon="circle"
-                class="online min-margin-right"
-              />
+              <font-awesome-icon icon="circle" class="online" />
               {{ user }}
+              <font-awesome-icon
+                icon="times"
+                class="float-right btn-delete-user"
+                v-on:click="deleteUser(index)"
+              />
             </p>
           </div>
         </div>
       </div>
-      <div class="col-lg-6 col-md-5 col-sm-12 col-12">
+      <div class="col-lg-6 col-md-5 col-sm-9 col-12">
         <div class="layout">
           <h4>Novo Jogo</h4>
           <div class="form-group">
@@ -132,7 +134,7 @@
                 icon="circle"
                 class="online min-margin-right"
               />
-              <strong>{{ vote.user.name }}</strong>
+              <span class="users">{{ vote.user.name }}</span>
               <div
                 class="playing-card playing-card-back d-flex flex-column justify-content-center"
                 v-if="!vote.number && !shouldShowCards"
@@ -237,6 +239,15 @@ export default {
     },
     returnToHome() {
       this.$router.push("/");
+    },
+    deleteUser(index) {
+      this.session.users.splice(index, 1);
+      SessionService.save(this.session).then(
+        () => {},
+        error => {
+          this.sessionError = error;
+        }
+      );
     }
   },
   mounted() {
