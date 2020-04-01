@@ -89,6 +89,14 @@ export const SessionService = {
           .catch(error => reject(error));
       });
     });
+  },
+  shouldShowCards: function(session, currentGame) {
+    if (currentGame && currentGame.id) {
+      if (currentGame && currentGame.votes) {
+        return currentGame.votes.every(vote => vote.number != 0);
+      }
+    }
+    return false;
   }
 };
 

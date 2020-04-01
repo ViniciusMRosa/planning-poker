@@ -12,8 +12,14 @@
             >
               <div
                 class="playing-card playing-card-front d-flex flex-column justify-content-center"
+                v-bind:class="{ selected: point === selectedNumber }"
+                @click="vote(point)"
               >
-                <span class="value" @click="vote(point)">{{ point }}</span>
+                <span
+                  class="value"
+                  v-bind:class="{ selected: point === selectedNumber }"
+                  >{{ point }}</span
+                >
               </div>
             </div>
           </div>
@@ -42,7 +48,8 @@ export default {
       names: [],
       newName: "",
       userVote: null,
-      voteError: ""
+      voteError: "",
+      selectedNumber: 0
     };
   },
   methods: {
@@ -66,11 +73,11 @@ export default {
         this.userVote
       )
         .then(vote => {
-          this.selected = vote.number;
+          this.selectedNumber = vote.number;
         })
         .catch(error => {
           this.voteError = error;
-          this.selected = 0;
+          this.selectedNumber = 0;
         });
     },
     remove(index) {
@@ -81,7 +88,7 @@ export default {
       var games = session.games || [];
       this.game = games.pop();
       this.userVote =
-        this.game.votes.filter(v => v.user.id === this.currentUser.id)[0] || {};
+        this.game.votes.find(v => v.user.id === this.currentUser.id) || {};
     }
   },
   created() {
