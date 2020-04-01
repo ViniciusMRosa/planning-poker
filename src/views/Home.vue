@@ -238,6 +238,7 @@ export default {
             this.existentSession.nickname
           ).then(
             user => {
+              Common.setInLocalStorage("user", user);
               this.$router.push({
                 name: "Game",
                 params: {

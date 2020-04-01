@@ -274,9 +274,15 @@ label {
     background-size: 100%;
     color: transparent;
 }
+.playing-card-front {
+    background: url(../images/card-front.svg) no-repeat;
+    background-size: 100%;
+    color: transparent;
+}
 .playing-card .value{
     font-weight: bold;
     font-size: 25px;
+    color: #7a7a8c;
 }
 .online {
     color: #0acf97;
