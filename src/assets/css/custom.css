@@ -279,10 +279,24 @@ label {
     background-size: 100%;
     color: transparent;
 }
+.playing-card-front:hover {
+    -webkit-box-shadow: 10px 10px 10px -6px rgba(49,80,128,0.67);
+    -moz-box-shadow: 10px 10px 10px -6px rgba(49,80,128,0.67);
+    box-shadow: 10px 10px 10px -6px rgba(49,80,128,0.67);
+}
 .playing-card .value{
     font-weight: bold;
     font-size: 25px;
     color: #7a7a8c;
+}
+.playing-card-front.selected{
+    -webkit-box-shadow: 10px 10px 10px -6px rgba(49,80,128,0.67);
+    -moz-box-shadow: 10px 10px 10px -6px rgba(49,80,128,0.67);
+    box-shadow: 10px 10px 10px -6px rgba(49,80,128,0.67);
+}
+.playing-card .value.selected{
+    color: #2e489e;
+    font-size: 28px;
 }
 .online {
     color: #0acf97;
