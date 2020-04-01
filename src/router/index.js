@@ -3,7 +3,6 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Admin from "../views/Admin.vue";
 import Game from "../views/Game.vue";
-import Registry from "../views/Registry.vue";
 
 Vue.use(VueRouter);
 
@@ -22,12 +21,7 @@ const routes = [
     name: "Game",
     path: "/:sessionId/game",
     component: Game,
-    props: true,
-
-  },
-  {
-    path: "/:sessionId/registry",
-    component: Registry
+    props: true
   }
 ];
 
