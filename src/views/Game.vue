@@ -4,7 +4,9 @@
       <div class="col-lg-12 col-md-12 col-sm-12 col-12">
         <h3>{{ game ? game.title : "Nenhuma tarefa" }}</h3>
         <div class="layout">
-          <div class="d-flex flex-wrap flex-row bd-highlight mb-3">
+          <div
+            class="d-flex flex-wrap flex-row bd-highlight mb-3 justify-content-md-center"
+          >
             <div
               v-for="(point, index) in points"
               v-bind:key="index"

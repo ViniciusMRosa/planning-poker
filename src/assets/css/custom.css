@@ -278,11 +278,13 @@ label {
     background: url(../images/card-front.svg) no-repeat;
     background-size: 100%;
     color: transparent;
+    transition: 1s;
 }
 .playing-card-front:hover {
     -webkit-box-shadow: 10px 10px 10px -6px rgba(49,80,128,0.67);
     -moz-box-shadow: 10px 10px 10px -6px rgba(49,80,128,0.67);
     box-shadow: 10px 10px 10px -6px rgba(49,80,128,0.67);
+    transition: 1s;
 }
 .playing-card .value{
     font-weight: bold;

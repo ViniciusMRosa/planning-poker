@@ -239,8 +239,8 @@ export default {
       }
       if (session.games) {
         this.games = session.games.map(g => g.title);
+        this.game = session.games.find(g => g.id === this.game.id) || this.game;
       }
-      this.game = session.games.find(g => g.id === this.game.id) || this.game;
       this.shouldShowCards = SessionService.shouldShowCards(session, this.game);
       this.loading = false;
     },
