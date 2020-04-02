@@ -266,8 +266,8 @@ label {
 .playing-card{
     text-align: center;
     position: relative;
-    height: 183px;
-    width: 125px;
+    height: 178px;
+    width: 122px;
 }
 .playing-card-back {
     background: url(../images/card-back.svg) no-repeat;
@@ -279,12 +279,16 @@ label {
     background-size: 100%;
     color: transparent;
     cursor: pointer;
+    height: 176px;
+    border: 2px solid transparent;
     transition: all .1s ease-in-out;
 }
 .playing-card-front:hover {
     -webkit-box-shadow: 0px 17px 39px -23px rgba(112,112,112,1);
     -moz-box-shadow: 0px 17px 39px -23px rgba(112,112,112,1);
     box-shadow: 0px 17px 39px -23px rgba(112,112,112,1);
+    border: 2px solid #ddd;
+    border-radius: 7px;
     transform: scale(1.1);
     transition: 0.2s;
 }
@@ -294,12 +298,16 @@ label {
     color: #7a7a8c;
 }
 .playing-card-front.selected{
-    -webkit-box-shadow: 10px 10px 10px -6px rgba(49,80,128,0.67);
-    -moz-box-shadow: 10px 10px 10px -6px rgba(49,80,128,0.67);
-    box-shadow: 10px 10px 10px -6px rgba(49,80,128,0.67);
+    -webkit-box-shadow: 0px 17px 39px -23px rgba(112,112,112,1);
+    -moz-box-shadow: 0px 17px 39px -23px rgba(112,112,112,1);
+    box-shadow: 0px 17px 39px -23px rgba(112,112,112,1);
+    border: 2px solid #0acf97;
+    border-radius: 7px;
+    transform: scale(1.1);
+    transition: 1s;
 }
 .playing-card .value.selected{
-    color: #2e489e;
+    color: #0acf97;
     font-size: 28px;
 }
 .online {
@@ -308,13 +316,10 @@ label {
     vertical-align: middle;
     margin-bottom: 3px;
 }
-/* Define an animation behavior */
 @keyframes spinner {
     to { transform: rotate(360deg); }
 }
-/* This is the class name given by the Font Awesome component when icon contains 'spinner' */
 .spin {
-    /* Apply 'spinner' keyframes looping once every second (1s)  */
     animation: spinner 2s linear infinite;
     font-size: 20px;
 }
