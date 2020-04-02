@@ -165,13 +165,6 @@
           >
             Encerrar <font-awesome-icon icon="hourglass-end" />
           </button>
-          <button
-            type="button"
-            class="btn btn-app margin-bottom margin-left"
-            v-on:click="showCards"
-          >
-            Mostrar Cartas <font-awesome-icon icon="eye" />
-          </button>
         </div>
       </div>
     </div>
@@ -218,9 +211,7 @@ export default {
     },
     finishGame() {
       this.gameStarted = false;
-    },
-    showCards() {
-      this.shouldShowCards = true;
+      this.game = {};
     },
     deleteSession() {
       SessionService.delete(this.session).then(
