@@ -278,12 +278,14 @@ label {
     background: url(../images/card-front.svg) no-repeat;
     background-size: 100%;
     color: transparent;
-    transition: 1s;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
 }
 .playing-card-front:hover {
-    -webkit-box-shadow: 10px 10px 10px -6px rgba(49,80,128,0.67);
-    -moz-box-shadow: 10px 10px 10px -6px rgba(49,80,128,0.67);
-    box-shadow: 10px 10px 10px -6px rgba(49,80,128,0.67);
+    -webkit-box-shadow: 0px 17px 32px -9px rgba(112,112,112,1);
+    -moz-box-shadow: 0px 17px 32px -9px rgba(112,112,112,1);
+    box-shadow: 0px 17px 32px -9px rgba(112,112,112,1);
+    transform: scale(1.1);
     transition: 1s;
 }
 .playing-card .value{
