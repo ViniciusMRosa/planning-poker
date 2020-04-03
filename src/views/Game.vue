@@ -79,14 +79,15 @@ export default {
         this.$route.params.sessionId,
         this.game,
         this.userVote
-      )
-        .then(vote => {
+      ).then(
+        vote => {
           this.selectedNumber = vote.number;
-        })
-        .catch(error => {
+        },
+        error => {
           this.voteError = error;
           this.selectedNumber = 0;
-        });
+        }
+      );
     },
     refreshSessionData(session) {
       this.session = session;
