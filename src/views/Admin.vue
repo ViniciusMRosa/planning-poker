@@ -239,7 +239,9 @@ export default {
         this.users = session.users.map(u => u.name);
       }
       if (session.games) {
-        this.games = session.games.map(g => g.title);
+        this.games = session.games
+          .filter(g => g.status == "FINISHED")
+          .map(g => g.title);
         this.game = session.games.find(g => g.id === this.game.id) || this.game;
       }
       this.shouldShowCards = SessionService.shouldShowCards(session, this.game);
