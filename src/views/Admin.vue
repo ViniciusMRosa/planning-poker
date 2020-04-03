@@ -213,12 +213,16 @@ export default {
       );
     },
     finishGame() {
-      SessionService.finishGame(this.session.id, this.game)
-        .then(() => {
+      SessionService. finishGame(this.session.id, this.game).then(
+        () => {
           this.gameStarted = false;
           this.game = {};
-        })
-        .catch(error => (this.sessionError = error));
+        },
+        error => {
+          this.sessionError = error;
+        }
+      );
+    },
     },
     deleteSession() {
       SessionService.delete(this.session).then(
