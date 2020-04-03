@@ -166,7 +166,7 @@ export default {
     return {
       newSession: {
         id: Common.generateRandomUUID(),
-        name: "Planejamento de Tarefas",
+        name: Common.generateDefaultSessionName(),
         users: [],
         games: []
       },
