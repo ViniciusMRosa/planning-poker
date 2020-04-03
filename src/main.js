@@ -2,6 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import firebase from "firebase";
+import moment from "moment";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/css/custom.css";
@@ -52,6 +53,8 @@ firebase.analytics();
 
 const fb = firebase;
 const sessionsCollection = fb.firestore().collection("sessions");
+
+moment.locale("pt-BR");
 
 new Vue({
   router,
