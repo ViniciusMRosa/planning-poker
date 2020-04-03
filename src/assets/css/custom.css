@@ -266,8 +266,9 @@ label {
 .playing-card{
     text-align: center;
     position: relative;
-    height: 178px;
+    height: 176px;
     width: 122px;
+    border: 2px solid transparent;
 }
 .playing-card-back {
     background: url(../images/card-back.svg) no-repeat;
@@ -279,8 +280,6 @@ label {
     background-size: 100%;
     color: transparent;
     cursor: pointer;
-    height: 176px;
-    border: 2px solid transparent;
     transition: all .1s ease-in-out;
 }
 .playing-card-front:hover {

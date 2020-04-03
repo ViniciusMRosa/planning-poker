@@ -1,10 +1,24 @@
 <template>
   <div class="container-fluid">
-    <div class="row justify-content-center">
+    <div class="row justify-content-md-center" v-if="loading">
+      <div class="col-lg-8 col-md-10 col-sm-12 col-12">
+        <div>
+          <font-awesome-icon class="spin" icon="spinner" />
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center" v-if="!loading">
       <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-        <h3>{{ game ? game.title : "Nenhuma tarefa" }}</h3>
+        <h3><font-awesome-icon icon="code-branch" /> {{ session.name }}</h3>
+        <h4 class="margin-top">{{ game ? game.title : "Nenhuma tarefa" }}</h4>
         <div class="layout">
-          <div class="alert alert-gray" role="alert" v-if="!this.game">
+          <font-awesome-icon icon="circle" class="online min-margin-right" />
+          <span class="text-bold">{{ currentUser.name }}</span>
+          <div
+            class="alert alert-gray margin-top"
+            role="alert"
+            v-if="!this.game"
+          >
             Aguardando Administrador
           </div>
           <div
@@ -51,26 +65,14 @@ export default {
       points: [1, 2, 3, 5, 8, 13, 21, 34],
       game: {},
       description: "",
-      names: [],
-      newName: "",
       userVote: null,
       voteError: "",
-      selectedNumber: 0
+      selectedNumber: 0,
+      session: {},
+      loading: true
     };
   },
   methods: {
-    ruffle() {
-      var index = Math.floor(Math.random() * this.names.length);
-      var drawn = this.names[index];
-      this.$router.push({
-        name: "Ruffle",
-        params: {
-          description: this.description,
-          names: this.names,
-          drawn: drawn
-        }
-      });
-    },
     vote(number) {
       this.userVote.number = number;
       SessionService.vote(
@@ -86,15 +88,13 @@ export default {
           this.selectedNumber = 0;
         });
     },
-    remove(index) {
-      this.names.splice(index, 1);
-    },
     refreshSessionData(session) {
       this.session = session;
       var games = session.games || [];
       this.game = games.pop();
       this.userVote =
         this.game.votes.find(v => v.user.id === this.currentUser.id) || {};
+      this.loading = false;
     }
   },
   created() {
@@ -102,16 +102,6 @@ export default {
       this.$route.params.sessionId,
       this.refreshSessionData
     );
-  },
-  mounted() {
-    if (this.$route.params.names && this.$route.params.description) {
-      this.description = this.$route.params.description;
-      this.names = this.$route.params.names;
-    } else {
-      this.description = "Basal da Semana";
-      this.names = ["Hugo", "Leo", "Mari", "Naty", "Vini"];
-    }
-    this.newName = "";
   }
 };
 </script>

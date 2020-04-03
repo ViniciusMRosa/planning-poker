@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="menu">
-      <span class="logo">Planning Poker</span>
+      <span class="logo">Planning Poker Easy</span>
     </div>
     <router-view class="content" />
     <footer>
