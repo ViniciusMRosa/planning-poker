@@ -4,12 +4,12 @@
       <div class="col-lg-12 col-md-12 col-sm-12 col-12">
         <h3>{{ game ? game.title : "Nenhuma tarefa" }}</h3>
         <div class="layout">
-          <div class="alert alert-gray" role="alert" v-if="!this.game">
+          <div class="alert alert-gray" role="alert" v-if="!this.game.id">
             Aguardando Administrador
           </div>
           <div
             class="d-flex flex-wrap flex-row bd-highlight mb-3 justify-content-md-center"
-            v-if="this.game"
+            v-if="this.game.id"
           >
             <div
               v-for="(point, index) in points"
@@ -92,9 +92,13 @@ export default {
     refreshSessionData(session) {
       this.session = session;
       var games = session.games || [];
-      this.game = games.pop();
-      this.userVote =
-        this.game.votes.find(v => v.user.id === this.currentUser.id) || {};
+      this.game = games.filter(g => g.status === "STARTED").pop() || {};
+      if (this.game.id) {
+        this.userVote =
+          this.game.votes.find(v => v.user.id === this.currentUser.id) || {};
+      } else {
+        this.selectedNumber = 0;
+      }
     }
   },
   created() {

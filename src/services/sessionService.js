@@ -59,6 +59,7 @@ export const SessionService = {
     const promise = new Promise((resolve, reject) => {
       game.id = Common.generateRandomUUID();
       game.votes = createVotes(session.users);
+      game.status = "STARTED";
       session.games = session.games || [];
       session.games.push(game);
       this.save(session)
@@ -74,6 +75,17 @@ export const SessionService = {
       } else {
         error("Não foi possível obter snapshot da sessão " + id);
       }
+    });
+  },
+  finishGame: function(sessionId, game) {
+    return new Promise((resolve, reject) => {
+      this.getById(sessionId).then(session => {
+        var foundGameId = session.games.findIndex(g => g.id == game.id);
+        session.games[foundGameId].status = "FINISHED";
+        this.save(session)
+          .then(() => resolve(game))
+          .catch(error => reject(error));
+      });
     });
   },
   vote: function(sessionId, game, vote) {
